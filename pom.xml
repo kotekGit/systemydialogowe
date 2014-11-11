@@ -7,7 +7,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>api</module>
-    <module>pl.edu.wat.swp</module>
-    <module>web</module>
+    	<module>web</module>
   </modules>
 </project>
