@@ -9,6 +9,7 @@ $(document).ready(function() {
 		  url: $.PATH("findAll"),
 		  success : function(s) {
 			  console.log(s)
+			  alert(s.name);
 		  },
 		  error : function(e) {
 			  console.log(e)
