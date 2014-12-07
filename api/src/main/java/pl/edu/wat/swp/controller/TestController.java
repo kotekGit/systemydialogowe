@@ -11,25 +11,28 @@ import pl.edu.wat.swp.model.TestEntity;
 import pl.edu.wat.swp.repository.TestRepository;
 
 @RestController
-public class TestController {
-	
-	@Autowired
-	TestRepository repo;
-	
-	@RequestMapping("/findAll")
-    public Iterable<TestEntity> findAll() {
-		Iterable<TestEntity> all = repo.findAll();
+public class TestController
+{
+
+    @Autowired
+    TestRepository repo;
+
+    @RequestMapping( "/findAll" )
+    public Iterable<TestEntity> findAll()
+    {
+        Iterable<TestEntity> all = repo.findAll();
         return all;
     }
-	
-	@RequestMapping("/saveTestEntity/{name}")
-    public void save(@PathVariable("name") final String name) {
-		repo.save(new TestEntity(name));
+
+    @RequestMapping( "/saveTestEntity/{name}" )
+    public void save( @PathVariable( "name" ) final String name )
+    {
+        repo.save( new TestEntity( name ) );
     }
-	
-	
-	@RequestMapping("/")
-    public String welcome(Map<String, Object> model) {
+
+    @RequestMapping( "/" )
+    public String welcome( Map<String, Object> model )
+    {
         return "index";
     }
 }
