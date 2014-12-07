@@ -1,4 +1,4 @@
-package pl.edu.wat.swp.entity;
+package pl.edu.wat.swp.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
