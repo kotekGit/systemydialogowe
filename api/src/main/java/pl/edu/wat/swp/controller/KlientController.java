@@ -1,8 +1,8 @@
 package pl.edu.wat.swp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.edu.wat.swp.helpers.Response;
@@ -15,11 +15,19 @@ public class KlientController {
 	@Autowired
 	KlientRepository repo;
 
-	@RequestMapping(value="/checkCredentials")
-	public Response checkCredentials(@RequestParam("p1") Integer id, @RequestParam("p2") String pass) {
-		Klient klient = repo.findOne(id);
+	@RequestMapping(value = "/checkCredentials/{id}/{pass}")
+	public Response checkCredentials(@PathVariable("id") Integer id, @PathVariable("pass") String pass) {
+		Klient klient = null;
 		Response r = new Response();
 		r.setValue(false);
+		
+		try {
+			klient = repo.findOne(id);
+		} catch (NullPointerException npe) {
+			r.setMsg("User not found!");
+			return r;
+		}
+
 		r.setMsg("Credentials incorrect!");
 		if (klient.getHaslo().equals(pass)) {
 			r.setMsg("Credentials correct!");
@@ -27,5 +35,4 @@ public class KlientController {
 		}
 		return r;
 	}
-	
 }
