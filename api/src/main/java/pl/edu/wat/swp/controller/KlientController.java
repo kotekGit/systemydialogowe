@@ -1,5 +1,7 @@
 package pl.edu.wat.swp.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pl.edu.wat.swp.helpers.Response;
 import pl.edu.wat.swp.model.Klient;
+import pl.edu.wat.swp.model.Operacjabankowa;
 import pl.edu.wat.swp.repository.KlientRepository;
 
 @RestController
@@ -18,6 +21,7 @@ public class KlientController {
 	@RequestMapping(value = "/checkCredentials/{id}/{pass}")
 	public Response checkCredentials(@PathVariable("id") Integer id, @PathVariable("pass") String pass) {
 		Klient klient = null;
+		
 		Response r = new Response();
 		r.setValue(false);
 		
@@ -35,4 +39,25 @@ public class KlientController {
 		}
 		return r;
 	}
+	
+	@RequestMapping(value = "/getAccountBalance/{id}")
+	public Integer getAccountBalanceForUser(Integer id) {
+		Klient klient = repo.findOne(id);
+		
+		
+		
+		Collection<Operacjabankowa> operacje = klient.getOperacjabankowaCollection();
+		
+		for (Operacjabankowa o : operacje) {
+			if (o.getRodzajoperacji().getNazwaRO() == "PRZYPŁYWY") {
+				o.getKwotaOB();
+			} else {
+				
+			}
+		}
+		
+		
+		return null;
+	}
+	
 }
