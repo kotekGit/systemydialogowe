@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 
 @Entity
-@Table( name = "klient" )
+@Table( name = "Klient" )
 @XmlRootElement
 @NamedQueries( { @NamedQuery( name = "Klient.findAll", query = "SELECT k FROM Klient k" ),
         @NamedQuery( name = "Klient.findByNik", query = "SELECT k FROM Klient k WHERE k.nik = :nik" ),
@@ -45,7 +45,6 @@ public class Klient implements Serializable
     private static final long serialVersionUID = 1L;
     @Id
     @Basic( optional = false )
-    @NotNull
     @Column( name = "NIK" )
     private Integer nik;
     @Size( max = 40 )
@@ -58,12 +57,10 @@ public class Klient implements Serializable
     @Column( name = "Telefon" )
     private String telefon;
     @Basic( optional = false )
-    @NotNull
     @Size( min = 1, max = 20 )
     @Column( name = "Login" )
     private String login;
     @Basic( optional = false )
-    @NotNull
     @Size( min = 1, max = 10 )
     @Column( name = "Haslo" )
     private String haslo;

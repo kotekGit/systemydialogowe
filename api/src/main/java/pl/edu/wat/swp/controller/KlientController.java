@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.edu.wat.swp.helpers.Response;
+import pl.edu.wat.swp.model.Adres;
 import pl.edu.wat.swp.model.Klient;
 import pl.edu.wat.swp.model.Operacjabankowa;
 import pl.edu.wat.swp.repository.KlientRepository;
@@ -38,6 +39,27 @@ public class KlientController {
 			r.setValue(true);
 		}
 		return r;
+	}
+	
+	
+	@RequestMapping(value = "/save")
+	public void save() {
+		Klient k = new Klient();
+		k.setNik(12);
+		k.setIdAdresu(null);
+		k.setEmail("asf");
+		k.setHaslo("asdsa");
+		k.setImie("asdasd");
+		k.setOperacjabankowaCollection(null);
+		k.setLogin("121");
+		
+//		Adres adres = new Adres();
+//		adres.setIdAdresu(123);
+//		adres.setKodPocztowy("2434324");
+//		adres.setNrBudynku("12");
+//		k.setIdAdresu(adres);
+		
+		repo.save(k);
 	}
 	
 	@RequestMapping(value = "/getAccountBalance/{id}")
