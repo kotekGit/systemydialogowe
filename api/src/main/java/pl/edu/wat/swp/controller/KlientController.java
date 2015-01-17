@@ -45,13 +45,11 @@ public class KlientController {
 	@RequestMapping(value = "/save")
 	public void save() {
 		Klient k = new Klient();
-		k.setNik(12);
 		k.setIdAdresu(null);
-		k.setEmail("asf");
+		k.setEmail("dupa");
 		k.setHaslo("asdsa");
 		k.setImie("asdasd");
-		k.setOperacjabankowaCollection(null);
-		k.setLogin("121");
+		k.setLogin("dupaLogin");
 		
 //		Adres adres = new Adres();
 //		adres.setIdAdresu(123);

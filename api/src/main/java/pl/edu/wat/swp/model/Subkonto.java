@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 
 @Entity
-@Table( name = "subkonto" )
+@Table( name = "SubKonto" )
 @XmlRootElement
 @NamedQueries( {
         @NamedQuery( name = "Subkonto.findAll", query = "SELECT s FROM Subkonto s" ),

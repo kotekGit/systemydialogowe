@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 
 @Entity
-@Table( name = "typoferty" )
+@Table( name = "TypOferty" )
 @XmlRootElement
 @NamedQueries( {
         @NamedQuery( name = "Typoferty.findAll", query = "SELECT t FROM Typoferty t" ),
@@ -36,8 +38,7 @@ public class Typoferty implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic( optional = false )
-    @NotNull
+    @GeneratedValue( strategy = GenerationType.AUTO )
     @Column( name = "IdTypOfer" )
     private Integer idTypOfer;
     @Size( max = 20 )

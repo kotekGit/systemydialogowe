@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,8 +23,7 @@ public class OperacjabankowaPK implements Serializable
     @NotNull
     @Column( name = "IdRO" )
     private int idRO;
-    @Basic( optional = false )
-    @NotNull
+    @GeneratedValue( strategy = GenerationType.AUTO )
     @Column( name = "IdOB" )
     private int idOB;
 

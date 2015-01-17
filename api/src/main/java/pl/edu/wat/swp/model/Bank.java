@@ -3,7 +3,6 @@ package pl.edu.wat.swp.model;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 
 @Entity
-@Table( name = "bank" )
+@Table( name = "Bank" )
 @XmlRootElement
 @NamedQueries( {
         @NamedQuery( name = "Bank.findAll", query = "SELECT b FROM Bank b" ),
@@ -36,8 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Bank implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
     @Id
-    @Basic( optional = false )
     @NotNull
     @Size( min = 1, max = 4 )
     @Column( name = "CWB" )

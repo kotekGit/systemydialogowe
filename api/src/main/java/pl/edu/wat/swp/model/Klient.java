@@ -3,11 +3,12 @@ package pl.edu.wat.swp.model;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -44,7 +44,7 @@ public class Klient implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic( optional = false )
+    @GeneratedValue( strategy = GenerationType.AUTO )
     @Column( name = "NIK" )
     private Integer nik;
     @Size( max = 40 )
@@ -56,11 +56,9 @@ public class Klient implements Serializable
     @Size( max = 9 )
     @Column( name = "Telefon" )
     private String telefon;
-    @Basic( optional = false )
     @Size( min = 1, max = 20 )
     @Column( name = "Login" )
     private String login;
-    @Basic( optional = false )
     @Size( min = 1, max = 10 )
     @Column( name = "Haslo" )
     private String haslo;
@@ -70,7 +68,7 @@ public class Klient implements Serializable
     @Size( max = 20 )
     @Column( name = "Email" )
     private String email;
-    @JoinTable( name = "pelnomocnictwo", joinColumns = { @JoinColumn( name = "NIK", referencedColumnName = "NIK" ) }, inverseJoinColumns = { @JoinColumn( name = "CIF", referencedColumnName = "CIF" ) } )
+    @JoinTable( name = "Pelnomocnictwo", joinColumns = { @JoinColumn( name = "NIK", referencedColumnName = "NIK" ) }, inverseJoinColumns = { @JoinColumn( name = "CIF", referencedColumnName = "CIF" ) } )
     @ManyToMany( fetch = FetchType.LAZY )
     private Collection<Kontobankowe> kontobankoweCollection;
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "nik", fetch = FetchType.LAZY )

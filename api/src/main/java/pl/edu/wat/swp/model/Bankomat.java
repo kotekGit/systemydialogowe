@@ -6,6 +6,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -24,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @Entity
-@Table( name = "bankomat" )
+@Table( name = "Bankomat" )
 @XmlRootElement
 @NamedQueries( {
         @NamedQuery( name = "Bankomat.findAll", query = "SELECT b FROM Bankomat b" ),
@@ -33,8 +35,7 @@ public class Bankomat implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic( optional = false )
-    @NotNull
+    @GeneratedValue( strategy = GenerationType.AUTO )
     @Column( name = "IdBankomatu" )
     private Integer idBankomatu;
     @JoinColumn( name = "IdAdresu", referencedColumnName = "IdAdresu" )
