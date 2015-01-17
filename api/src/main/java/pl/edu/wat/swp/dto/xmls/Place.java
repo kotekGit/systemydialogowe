@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @date 17 sty 2015 This class must be use for information about places.
  */
 
-@XmlRootElement( name = "place" )
+@XmlRootElement( name = "places" )
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Place
 {

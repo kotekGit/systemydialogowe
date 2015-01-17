@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @date 17 sty 2015 This class must be use for concatenate address.
  */
 
-@XmlRootElement( name = "address" )
+@XmlRootElement( name = "addresses" )
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Address
 {

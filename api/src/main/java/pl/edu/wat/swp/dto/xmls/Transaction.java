@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @date 17 sty 2015 This class must be use for information about transactions.
  */
 
-@XmlRootElement( name = "transaction" )
+@XmlRootElement( name = "transactions" )
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Transaction
 {

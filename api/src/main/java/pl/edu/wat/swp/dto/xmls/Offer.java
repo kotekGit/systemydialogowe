@@ -4,38 +4,26 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
  * 
  * @author Krzysztof Jedynak @email jedynakpoczta@gmail.com
  * @date 17 sty 2015 This element must be use for information about offer.
  */
 
-@XmlRootElement( name = "offer" )
+@XmlRootElement( name = "offers" )
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Offer
 {
-    private String offerName;
-    private String contents;
+    private String nameAndContents;
 
-    public String getOfferName()
+    public String getNameAndContents()
     {
-        return offerName;
+        return nameAndContents;
     }
 
-    public void setOfferName( String offerName )
+    public void setNameAndContents( String nameAndContents )
     {
-        this.offerName = offerName;
-    }
-
-    public String getContents()
-    {
-        return contents;
-    }
-
-    public void setContents( String contents )
-    {
-        this.contents = contents;
+        this.nameAndContents = nameAndContents;
     }
 
 }

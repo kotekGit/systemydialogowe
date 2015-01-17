@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @date 17 sty 2015 This class must be use for information about district.
  */
 
-@XmlRootElement( name = "district" )
+@XmlRootElement( name = "districts" )
 @XmlAccessorType( XmlAccessType.FIELD )
 public class District
 {
