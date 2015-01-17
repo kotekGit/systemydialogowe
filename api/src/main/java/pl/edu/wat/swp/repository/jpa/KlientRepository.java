@@ -1,4 +1,4 @@
-package pl.edu.wat.swp.repository;
+package pl.edu.wat.swp.repository.jpa;
 
 import java.io.Serializable;
 

@@ -11,7 +11,7 @@ import pl.edu.wat.swp.helpers.Response;
 import pl.edu.wat.swp.model.Adres;
 import pl.edu.wat.swp.model.Klient;
 import pl.edu.wat.swp.model.Operacjabankowa;
-import pl.edu.wat.swp.repository.KlientRepository;
+import pl.edu.wat.swp.repository.jpa.KlientRepository;
 
 @RestController
 public class KlientController {
