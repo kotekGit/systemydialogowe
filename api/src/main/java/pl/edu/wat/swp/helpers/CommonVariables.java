@@ -19,5 +19,7 @@ public class CommonVariables
     public static String OFFER_NAME = "Offer Name";
     public static String OFFER_CONTNET = "Content ";
     
+    public static String DOLLAR = " $";
+    
 
 }

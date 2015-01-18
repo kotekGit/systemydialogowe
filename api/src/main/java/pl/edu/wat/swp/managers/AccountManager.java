@@ -1,12 +1,20 @@
 package pl.edu.wat.swp.managers;
 
+import java.math.BigDecimal;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.Login;
+import pl.edu.wat.swp.helpers.CommonVariables;
 import pl.edu.wat.swp.model.Klient;
+import pl.edu.wat.swp.model.Kontobankowe;
+import pl.edu.wat.swp.model.Operacjabankowa;
+import pl.edu.wat.swp.model.Subkonto;
 import pl.edu.wat.swp.repository.jpa.service.KlientRepository;
+import pl.edu.wat.swp.repository.jpa.service.SubKontoRepository;
 
 /**
  * 
@@ -22,6 +30,9 @@ public class AccountManager
 
     @Autowired
     KlientRepository klientRepository;
+
+    @Autowired
+    SubKontoRepository subKontoRepository;
 
     public Login isAccess( Integer userId, String usserPassword )
     {
@@ -48,4 +59,39 @@ public class AccountManager
         return login;
     }
 
+    /**
+     * Get balance for subkonto nrsk.
+     * 
+     * @param subKontoId
+     * @return
+     */
+    public Account getBalanceForSubKontoId( Integer subKontoId )
+    {
+        Subkonto subkonto = new Subkonto();
+        Account account = new Account();
+
+        try
+        {
+            subkonto = subKontoRepository.findBynrsk( subKontoId );
+        }
+        catch ( NullPointerException npe )
+        {
+            logger.debug( "SubKonto not found!" );
+            return account;
+        }
+
+        if ( subkonto != null )
+        {
+            BigDecimal saldo = null;
+            if ( subkonto.getStanKonta() != null )
+            {
+                saldo = subkonto.getStanKonta();
+                account.setBalance( saldo.toString() + CommonVariables.DOLLAR );
+            }
+
+        }
+
+        return account;
+
+    }
 }

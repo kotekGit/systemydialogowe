@@ -9,6 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -29,32 +32,36 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table( name = "SubKonto" )
 @XmlRootElement
-@NamedQueries( {
+/*@NamedQueries( {
         @NamedQuery( name = "Subkonto.findAll", query = "SELECT s FROM Subkonto s" ),
         @NamedQuery( name = "Subkonto.findByCif", query = "SELECT s FROM Subkonto s WHERE s.subkontoPK.cif = :cif" ),
         @NamedQuery( name = "Subkonto.findByNrsk", query = "SELECT s FROM Subkonto s WHERE s.subkontoPK.nrsk = :nrsk" ),
         @NamedQuery( name = "Subkonto.findByStanKonta", query = "SELECT s FROM Subkonto s WHERE s.stanKonta = :stanKonta" ),
-        @NamedQuery( name = "Subkonto.findByStatus", query = "SELECT s FROM Subkonto s WHERE s.status = :status" ) } )
+        @NamedQuery( name = "Subkonto.findByStatus", query = "SELECT s FROM Subkonto s WHERE s.status = :status" ) } )*/
 public class Subkonto implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected SubkontoPK subkontoPK;
+    /*    @EmbeddedId
+        protected SubkontoPK subkontoPK;*/
     // @Max(value=?) @Min(value=?)//if you know range of your decimal fields
     // consider using these annotations to enforce field validation
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    @Column( name = "NRSK" )
+    private Integer nrsk;
     @Column( name = "StanKonta" )
     private BigDecimal stanKonta;
     @Size( max = 2 )
     @Column( name = "Status" )
     private String status;
     @JoinColumn( name = "IdWaluty", referencedColumnName = "IdWaluty" )
-    @ManyToOne( optional = false, fetch = FetchType.LAZY )
+    @ManyToOne( fetch = FetchType.LAZY )
     private Waluta idWaluty;
     @JoinColumn( name = "CIF", referencedColumnName = "CIF", insertable = false, updatable = false )
-    @ManyToOne( optional = false, fetch = FetchType.LAZY )
+    @ManyToOne( fetch = FetchType.LAZY )
     private Kontobankowe kontobankowe;
     @JoinColumn( name = "IdTypuKonta", referencedColumnName = "IdTypuKonta" )
-    @ManyToOne( optional = false, fetch = FetchType.LAZY )
+    @ManyToOne( fetch = FetchType.LAZY )
     private Typkonta idTypuKonta;
     @OneToMany( mappedBy = "subkonto", fetch = FetchType.LAZY )
     private Collection<Operacjabankowa> operacjabankowaCollection;
@@ -65,26 +72,36 @@ public class Subkonto implements Serializable
     {
     }
 
-    public Subkonto( SubkontoPK subkontoPK )
+    public Integer getNrsk()
     {
-        this.subkontoPK = subkontoPK;
+        return nrsk;
     }
 
-    public Subkonto( String cif, String nrsk )
+    public void setNrsk( Integer nrsk )
     {
-        this.subkontoPK = new SubkontoPK( cif, nrsk );
+        this.nrsk = nrsk;
     }
 
-    public SubkontoPK getSubkontoPK()
-    {
-        return subkontoPK;
-    }
+    /* public Subkonto( SubkontoPK subkontoPK )
+     {
+         this.subkontoPK = subkontoPK;
+     }
 
-    public void setSubkontoPK( SubkontoPK subkontoPK )
-    {
-        this.subkontoPK = subkontoPK;
-    }
+     public Subkonto( String cif, String nrsk )
+     {
+         this.subkontoPK = new SubkontoPK( cif, nrsk );
+     }
 
+     public SubkontoPK getSubkontoPK()
+     {
+         return subkontoPK;
+     }
+
+     public void setSubkontoPK( SubkontoPK subkontoPK )
+     {
+         this.subkontoPK = subkontoPK;
+     }
+    */
     public BigDecimal getStanKonta()
     {
         return stanKonta;
@@ -157,36 +174,36 @@ public class Subkonto implements Serializable
         this.operacjabankowaCollection1 = operacjabankowaCollection1;
     }
 
-    @Override
-    public int hashCode()
-    {
-        int hash = 0;
-        hash += ( subkontoPK != null ? subkontoPK.hashCode() : 0 );
-        return hash;
-    }
+    /*  @Override
+      public int hashCode()
+      {
+          int hash = 0;
+          hash += ( subkontoPK != null ? subkontoPK.hashCode() : 0 );
+          return hash;
+      }
 
-    @Override
-    public boolean equals( Object object )
-    {
-        // TODO: Warning - this method won't work in the case the id fields are
-        // not set
-        if ( !( object instanceof Subkonto ) )
-        {
-            return false;
-        }
-        Subkonto other = (Subkonto) object;
-        if ( ( this.subkontoPK == null && other.subkontoPK != null )
-             || ( this.subkontoPK != null && !this.subkontoPK.equals( other.subkontoPK ) ) )
-        {
-            return false;
-        }
-        return true;
-    }
+      @Override
+      public boolean equals( Object object )
+      {
+          // TODO: Warning - this method won't work in the case the id fields are
+          // not set
+          if ( !( object instanceof Subkonto ) )
+          {
+              return false;
+          }
+          Subkonto other = (Subkonto) object;
+          if ( ( this.subkontoPK == null && other.subkontoPK != null )
+               || ( this.subkontoPK != null && !this.subkontoPK.equals( other.subkontoPK ) ) )
+          {
+              return false;
+          }
+          return true;
+      }
 
-    @Override
-    public String toString()
-    {
-        return "pl.edu.wat.swp.model.Subkonto[ subkontoPK=" + subkontoPK + " ]";
-    }
+      @Override
+      public String toString()
+      {
+          return "pl.edu.wat.swp.model.Subkonto[ subkontoPK=" + subkontoPK + " ]";
+      }*/
 
 }

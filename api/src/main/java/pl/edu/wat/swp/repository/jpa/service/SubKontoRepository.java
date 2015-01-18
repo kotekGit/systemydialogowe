@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import pl.edu.wat.swp.model.Klient;
 import pl.edu.wat.swp.model.Subkonto;
 
 /**
@@ -14,4 +15,11 @@ import pl.edu.wat.swp.model.Subkonto;
 public interface SubKontoRepository extends JpaRepository<Subkonto, Serializable>
 {
 
+    /**
+     * Find klient by nik number.
+     * 
+     * @param nik
+     * @return
+     */
+    Subkonto findBynrsk( Integer NRSK );
 }
