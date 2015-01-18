@@ -5,13 +5,13 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -28,17 +28,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table( name = "Oddzial" )
 @XmlRootElement
-@NamedQueries( {
+/*@NamedQueries( {
         @NamedQuery( name = "Oddzial.findAll", query = "SELECT o FROM Oddzial o" ),
         @NamedQuery( name = "Oddzial.findByCwb", query = "SELECT o FROM Oddzial o WHERE o.oddzialPK.cwb = :cwb" ),
         @NamedQuery( name = "Oddzial.findByIdOddzialu", query = "SELECT o FROM Oddzial o WHERE o.oddzialPK.idOddzialu = :idOddzialu" ),
         @NamedQuery( name = "Oddzial.findByNazwaOddzialu", query = "SELECT o FROM Oddzial o WHERE o.nazwaOddzialu = :nazwaOddzialu" ),
-        @NamedQuery( name = "Oddzial.findBySiedziba", query = "SELECT o FROM Oddzial o WHERE o.siedziba = :siedziba" ) } )
+        @NamedQuery( name = "Oddzial.findBySiedziba", query = "SELECT o FROM Oddzial o WHERE o.siedziba = :siedziba" ) } )*/
 public class Oddzial implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected OddzialPK oddzialPK;
+    /*    @EmbeddedId
+        protected OddzialPK oddzialPK;*/
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    @Column( name = "IdOddzialu" )
+    private Integer idOddzialu;
     @Size( max = 40 )
     @Column( name = "NazwaOddzialu" )
     private String nazwaOddzialu;
@@ -49,7 +53,7 @@ public class Oddzial implements Serializable
     @ManyToOne( fetch = FetchType.LAZY )
     private Adres idAdresu;
     @JoinColumn( name = "CWB", referencedColumnName = "CWB", insertable = false, updatable = false )
-    @ManyToOne( optional = false, fetch = FetchType.LAZY )
+    @ManyToOne( fetch = FetchType.LAZY )
     private Bank bank;
     @OneToMany( mappedBy = "oddzial", fetch = FetchType.LAZY )
     private Collection<Bankomat> bankomatCollection;
@@ -62,7 +66,7 @@ public class Oddzial implements Serializable
     {
     }
 
-    public Oddzial( OddzialPK oddzialPK )
+    /*public Oddzial( OddzialPK oddzialPK )
     {
         this.oddzialPK = oddzialPK;
     }
@@ -80,6 +84,16 @@ public class Oddzial implements Serializable
     public void setOddzialPK( OddzialPK oddzialPK )
     {
         this.oddzialPK = oddzialPK;
+    }*/
+
+    public Integer getIdOddzialu()
+    {
+        return idOddzialu;
+    }
+
+    public void setIdOddzialu( Integer idOddzialu )
+    {
+        this.idOddzialu = idOddzialu;
     }
 
     public String getNazwaOddzialu()
@@ -155,36 +169,36 @@ public class Oddzial implements Serializable
         this.kontobankoweCollection = kontobankoweCollection;
     }
 
-    @Override
-    public int hashCode()
-    {
-        int hash = 0;
-        hash += ( oddzialPK != null ? oddzialPK.hashCode() : 0 );
-        return hash;
-    }
-
-    @Override
-    public boolean equals( Object object )
-    {
-        // TODO: Warning - this method won't work in the case the id fields are
-        // not set
-        if ( !( object instanceof Oddzial ) )
+    /*    @Override
+        public int hashCode()
         {
-            return false;
+            int hash = 0;
+            hash += ( oddzialPK != null ? oddzialPK.hashCode() : 0 );
+            return hash;
         }
-        Oddzial other = (Oddzial) object;
-        if ( ( this.oddzialPK == null && other.oddzialPK != null )
-             || ( this.oddzialPK != null && !this.oddzialPK.equals( other.oddzialPK ) ) )
-        {
-            return false;
-        }
-        return true;
-    }
 
-    @Override
-    public String toString()
-    {
-        return "pl.edu.wat.swp.model.Oddzial[ oddzialPK=" + oddzialPK + " ]";
-    }
+        @Override
+        public boolean equals( Object object )
+        {
+            // TODO: Warning - this method won't work in the case the id fields are
+            // not set
+            if ( !( object instanceof Oddzial ) )
+            {
+                return false;
+            }
+            Oddzial other = (Oddzial) object;
+            if ( ( this.oddzialPK == null && other.oddzialPK != null )
+                 || ( this.oddzialPK != null && !this.oddzialPK.equals( other.oddzialPK ) ) )
+            {
+                return false;
+            }
+            return true;
+        }*/
+
+    /*    @Override
+        public String toString()
+        {
+            return "pl.edu.wat.swp.model.Oddzial[ oddzialPK=" + oddzialPK + " ]";
+        }*/
 
 }

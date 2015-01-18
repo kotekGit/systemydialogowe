@@ -15,10 +15,16 @@ import pl.edu.wat.swp.dto.xmls.Login;
 import pl.edu.wat.swp.dto.xmls.Transaction;
 import pl.edu.wat.swp.dto.xmls.Transactions;
 import pl.edu.wat.swp.model.Adres;
+import pl.edu.wat.swp.model.Bank;
+import pl.edu.wat.swp.model.Bankomat;
+import pl.edu.wat.swp.model.Oddzial;
 import pl.edu.wat.swp.model.TestEntity;
 import pl.edu.wat.swp.repository.TestRepository;
 import pl.edu.wat.swp.repository.hibernate.AddresRepository;
 import pl.edu.wat.swp.repository.jpa.AdresRepository;
+import pl.edu.wat.swp.repository.jpa.BankRepository;
+import pl.edu.wat.swp.repository.jpa.BankomatRepository;
+import pl.edu.wat.swp.repository.jpa.OddzialReposirory;
 
 @Controller
 public class TestController
@@ -32,7 +38,19 @@ public class TestController
     
     @Autowired
     AdresRepository adresRepository;
-
+    
+    @Autowired
+    BankomatRepository bankomatRepository;
+    
+    @Autowired
+    OddzialReposirory oddzialReposirory;
+    
+    @Autowired
+    BankRepository bankRepository;
+    
+/*    @Autowired
+    OddzialPKRepository oddzialPKRepository;
+*/
     @RequestMapping( "/findAll" )
     public Iterable<TestEntity> findAll()
     {
@@ -94,6 +112,129 @@ public class TestController
         adres.setIdAdresu( new Integer( 23 ) );
         adres.setKodPocztowy( "ddasd" );
         adresRepository.save( adres );
+        
+        return "ok";
+    }
+    
+    @ResponseBody
+    @RequestMapping( value = "/test4")
+    public String testowaMetoda3(  )
+    {
+        Adres adres = new Adres();
+        adres.setMiejscowosc( "Warsaw" );
+        adres.setDzielnica( "Bemowo" );
+        adres.setUlica( "Nowa" );
+        adres.setNrLokalu( "44" );
+        adresRepository.save( adres );
+        
+        Adres adres2 = new Adres();
+        adres2.setMiejscowosc( "Wrocław" );
+        adres2.setDzielnica( "Odrzańska" );
+        adres2.setUlica( "Nowowiejsca" );
+        adres2.setNrLokalu( "2" );
+        adresRepository.save( adres2 );
+        
+        Bankomat bankomat = new Bankomat();
+        bankomat.setIdAdresu( adres );
+        bankomatRepository.save( bankomat );
+        
+        Bankomat bankomat2 = new Bankomat();
+        bankomat2.setIdAdresu( adres );
+        bankomatRepository.save( bankomat2 );
+        
+        Bankomat bankomat3 = new Bankomat();
+        bankomat3.setIdAdresu( adres2 );
+        bankomatRepository.save( bankomat3 );
+        
+        return "ok";
+    }
+    
+    @ResponseBody
+    @RequestMapping( value = "/test5")
+    public String testowaMetoda4(  )
+    {
+        Bank bank = new Bank();
+        bank.setCwb( "1" );
+        bankRepository.save( bank );
+        
+
+        
+        
+        Adres adres = new Adres();
+        adres.setMiejscowosc( "Warsaw" );
+        adres.setDzielnica( "Bemowo" );
+        adres.setUlica( "Nowa" );
+        adres.setNrLokalu( "44" );
+        adresRepository.save( adres );
+        
+        Adres adres2 = new Adres();
+        adres2.setMiejscowosc( "Wrocław" );
+        adres2.setDzielnica( "Odrzańska" );
+        adres2.setUlica( "Nowowiejsca" );
+        adres2.setNrLokalu( "2" );
+        adresRepository.save( adres2 );
+        
+        Adres adres3 = new Adres();
+        adres2.setMiejscowosc( "Gdańsk" );
+        adres2.setDzielnica( "Wola" );
+        adres2.setUlica( "Wiejscka" );
+        adres2.setNrLokalu( "22" );
+        adresRepository.save( adres3 );
+        
+        Adres adres4 = new Adres();
+        adres4.setMiejscowosc( "Warsaw" );
+        adres4.setDzielnica( "Bemowo" );
+        adres4.setUlica( "Wolności" );
+        adres4.setNrLokalu( "23" );
+        adresRepository.save( adres4 );
+        
+        Oddzial oddzial = new Oddzial();
+        oddzial.setNazwaOddzialu( "dasdasd" );
+        oddzial.setIdAdresu( adres );
+        //oddzial.setBank( bank );
+        
+/*        OddzialPK oddzialPK = new OddzialPK();
+        oddzialPK.setCwb( bank.getCwb() );
+        oddzialPKRepository.save( oddzialPK );
+        oddzial.setOddzialPK( oddzialPK );*/
+        oddzialReposirory.save( oddzial );
+
+        
+        Oddzial oddzial1 = new Oddzial();
+        oddzial1.setNazwaOddzialu( "dasdasd1" );
+        oddzial1.setIdAdresu( adres );
+        //oddzial1.setBank( bank );
+        oddzialReposirory.save( oddzial1 );
+        
+/*        OddzialPK oddzialPK2 = new OddzialPK();
+        oddzialPK2.setCwb( bank.getCwb() );
+        oddzialPKRepository.save( oddzialPK2 );
+        oddzial.setOddzialPK( oddzialPK2 );
+        oddzialReposirory.save( oddzial1 );*/
+        
+        Oddzial oddzial2 = new Oddzial();
+        oddzial2.setNazwaOddzialu( "dasdasd3" );
+        oddzial2.setIdAdresu( adres3 );
+        //oddzial2.setBank( bank );
+        oddzialReposirory.save( oddzial2 );
+        
+/*        OddzialPK oddzialPK3 = new OddzialPK();
+        oddzialPK3.setCwb( bank.getCwb() );
+        oddzialPKRepository.save( oddzialPK3 );
+        oddzial2.setOddzialPK( oddzialPK3 );
+        oddzialReposirory.save( oddzial2 );*/
+        
+        Oddzial oddzial3 = new Oddzial();
+        oddzial3.setNazwaOddzialu( "dasdasd3" );
+        oddzial3.setIdAdresu( adres4 );
+        //oddzial3.setBank( bank );
+        oddzialReposirory.save( oddzial3 );
+        
+/*        OddzialPK oddzialPK4 = new OddzialPK();
+        oddzialPK4.setCwb( bank.getCwb() );
+        oddzialPKRepository.save( oddzialPK4 );
+        oddzial3.setOddzialPK( oddzialPK4 );
+        oddzialReposirory.save( oddzial3 );*/
         
         return "ok";
     }

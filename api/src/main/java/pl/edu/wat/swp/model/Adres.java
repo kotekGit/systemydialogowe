@@ -61,6 +61,8 @@ public class Adres implements Serializable
     @Size( max = 5 )
     @Column( name = "NrLokalu" )
     private String nrLokalu;
+    @Column( name = "Dzielnica" )
+    private String dzielnica;
     @OneToMany( mappedBy = "idAdresu", fetch = FetchType.LAZY )
     private Collection<Oddzial> oddzialCollection;
     @OneToMany( mappedBy = "idAdresu", fetch = FetchType.LAZY )
@@ -145,6 +147,16 @@ public class Adres implements Serializable
     public void setNrLokalu( String nrLokalu )
     {
         this.nrLokalu = nrLokalu;
+    }
+
+    public String getDzielnica()
+    {
+        return dzielnica;
+    }
+
+    public void setDzielnica( String dzielnica )
+    {
+        this.dzielnica = dzielnica;
     }
 
     @XmlTransient
