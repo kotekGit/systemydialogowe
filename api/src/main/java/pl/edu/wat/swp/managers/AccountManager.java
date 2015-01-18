@@ -1,6 +1,7 @@
 package pl.edu.wat.swp.managers;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,12 @@ import org.springframework.stereotype.Component;
 
 import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.Login;
+import pl.edu.wat.swp.dto.xmls.Transaction;
 import pl.edu.wat.swp.helpers.CommonVariables;
 import pl.edu.wat.swp.model.Klient;
-import pl.edu.wat.swp.model.Kontobankowe;
 import pl.edu.wat.swp.model.Operacjabankowa;
 import pl.edu.wat.swp.model.Subkonto;
+import pl.edu.wat.swp.repository.jpa.impl.TransactionsRepository;
 import pl.edu.wat.swp.repository.jpa.service.KlientRepository;
 import pl.edu.wat.swp.repository.jpa.service.SubKontoRepository;
 
@@ -33,6 +35,9 @@ public class AccountManager
 
     @Autowired
     SubKontoRepository subKontoRepository;
+
+    @Autowired
+    TransactionsRepository transactionsRepository;
 
     public Login isAccess( Integer userId, String usserPassword )
     {
@@ -93,5 +98,55 @@ public class AccountManager
 
         return account;
 
+    }
+
+    /**
+     * Get all transactions by criteria.
+     * 
+     * @param type
+     * @param food
+     * @param interval
+     * @return
+     */
+    public Transaction getTransactionsForCriteria( String type, String category, String interval )
+    {
+        Transaction transaction = new Transaction();
+        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( type, category, interval );
+        transaction = this.makeXMLForEntities( transactions );
+        return transaction;
+    }
+
+    /**
+     * Make transaction xml for entities.
+     * 
+     * @param transactions
+     * @return
+     */
+    public Transaction makeXMLForEntities( List<Operacjabankowa> transactions )
+    {
+        Transaction transaction = new Transaction();
+        StringBuilder describeTrans = new StringBuilder();
+
+        for ( Operacjabankowa ob : transactions )
+        {
+            StringBuilder currentTrans = new StringBuilder();
+            currentTrans.append( CommonVariables.TRANSACTION_DELIMITER );
+            currentTrans.append( CommonVariables.TRANSACTION_DATE );
+
+            if ( ob.getDataOB() != null )
+            {
+                currentTrans.append( ob.getDataOB() + CommonVariables.TRANSACTION_DATE );
+            }
+            currentTrans.append( CommonVariables.TRANSACTION_ELEMENT_DELIMITER );
+            if ( ob.getOpis() != null )
+            {
+                currentTrans.append( ob.getOpis() + CommonVariables.ADDRESS_ELEMENT_DELIMITER );
+            }
+
+            describeTrans.append( currentTrans );
+        }
+
+        transaction.setInfo( describeTrans.toString() );
+        return transaction;
     }
 }

@@ -75,6 +75,12 @@ public class Operacjabankowa implements Serializable
     @ManyToOne( fetch = FetchType.LAZY )
     private Rodzajoperacji rodzajoperacji;
 
+    @Column( name = "Kategoria" )
+    private String kategoria;
+
+    @Column( name = "Opis" )
+    private String opis;
+
     public Operacjabankowa()
     {
     }
@@ -183,6 +189,26 @@ public class Operacjabankowa implements Serializable
     public void setRodzajoperacji( Rodzajoperacji rodzajoperacji )
     {
         this.rodzajoperacji = rodzajoperacji;
+    }
+
+    public String getKategoria()
+    {
+        return kategoria;
+    }
+
+    public void setKategoria( String kategoria )
+    {
+        this.kategoria = kategoria;
+    }
+
+    public String getOpis()
+    {
+        return opis;
+    }
+
+    public void setOpis( String opis )
+    {
+        this.opis = opis;
     }
 
     /*    @Override

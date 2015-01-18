@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.Login;
+import pl.edu.wat.swp.dto.xmls.Transaction;
 import pl.edu.wat.swp.managers.AccountManager;
 
 /**
@@ -41,6 +42,16 @@ public class AccountController
     {
         logger.debug( "Check balance for subKonto = " + id );
         return accountManager.getBalanceForSubKontoId( id );
+
+    }
+
+    @RequestMapping( value = "/transactions/{type}/{category}/{interval}", produces = MediaType.APPLICATION_XML_VALUE )
+    @ResponseBody
+    public Transaction getTransactions( @PathVariable( "type" ) String type, @PathVariable( "category" ) String category,
+            @PathVariable( "interval" ) String interval )
+    {
+        logger.debug( "Get transactions for criteria." );
+        return accountManager.getTransactionsForCriteria( type, category, interval );
 
     }
 }

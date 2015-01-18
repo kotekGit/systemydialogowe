@@ -21,5 +21,10 @@ public class CommonVariables
     
     public static String DOLLAR = " $";
     
+    public static String TRANSACTION_DELIMITER = " # ";
+    public static String TRANSACTION_ELEMENT_DELIMITER = ", ";
+    public static String TRANSACTION_DATE = "Date ";
+    public static String TRANSACTION_DESCRIBE = "Describe ";
+    
 
 }
