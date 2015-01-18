@@ -21,6 +21,8 @@ import pl.edu.wat.swp.model.Bank;
 import pl.edu.wat.swp.model.Bankomat;
 import pl.edu.wat.swp.model.Oddzial;
 import pl.edu.wat.swp.model.Oferta;
+import pl.edu.wat.swp.model.Operacjabankowa;
+import pl.edu.wat.swp.model.Rodzajoperacji;
 import pl.edu.wat.swp.model.Subkonto;
 import pl.edu.wat.swp.model.TestEntity;
 import pl.edu.wat.swp.repository.TestRepository;
@@ -30,6 +32,8 @@ import pl.edu.wat.swp.repository.jpa.service.AdresRepository;
 import pl.edu.wat.swp.repository.jpa.service.BankRepository;
 import pl.edu.wat.swp.repository.jpa.service.BankomatRepository;
 import pl.edu.wat.swp.repository.jpa.service.OddzialReposirory;
+import pl.edu.wat.swp.repository.jpa.service.OperacjaBankowaRepository;
+import pl.edu.wat.swp.repository.jpa.service.RodzajOperacjiRepository;
 import pl.edu.wat.swp.repository.jpa.service.SubKontoRepository;
 
 @Controller
@@ -59,6 +63,12 @@ public class TestController
 
     @Autowired
     SubKontoRepository subKontoRepository;
+    
+    @Autowired
+    OperacjaBankowaRepository operacjaBankowaRepository;
+    
+    @Autowired
+    RodzajOperacjiRepository rodzajOperacjiRepository;
 
     /*    @Autowired
         OddzialPKRepository oddzialPKRepository;
@@ -297,6 +307,23 @@ public class TestController
         Subkonto subkonto = new Subkonto();
         subkonto.setStanKonta( new BigDecimal( 1234.78 ) );
         subKontoRepository.save( subkonto );
+        
+        return "OK";
+    }
+    
+    @RequestMapping( value = "/test8" )
+    @ResponseBody
+    public String testowaMetoda7()
+    {
+        Rodzajoperacji rodzajoperacji = new Rodzajoperacji();
+        rodzajoperacji.setNazwaRO( "income" );
+        rodzajOperacjiRepository.save( rodzajoperacji );
+        
+        Operacjabankowa ob = new Operacjabankowa();
+        ob.setKategoria( "food" );
+        ob.setDataOB( new Date());
+        ob.setRodzajoperacji( rodzajoperacji );
+        operacjaBankowaRepository.save( ob );
         
         return "OK";
     }

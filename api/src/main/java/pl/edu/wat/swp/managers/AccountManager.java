@@ -1,6 +1,7 @@
 package pl.edu.wat.swp.managers;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -126,6 +127,7 @@ public class AccountManager
     {
         Transaction transaction = new Transaction();
         StringBuilder describeTrans = new StringBuilder();
+        SimpleDateFormat sdf = new SimpleDateFormat( CommonVariables.DATE_WITHOUT_TIME_FORMAT );
 
         for ( Operacjabankowa ob : transactions )
         {
@@ -135,12 +137,12 @@ public class AccountManager
 
             if ( ob.getDataOB() != null )
             {
-                currentTrans.append( ob.getDataOB() + CommonVariables.TRANSACTION_DATE );
+                currentTrans.append( sdf.format( ob.getDataOB() ) + CommonVariables.TRANSACTION_ELEMENT_DELIMITER);
             }
-            currentTrans.append( CommonVariables.TRANSACTION_ELEMENT_DELIMITER );
+            currentTrans.append( CommonVariables.TRANSACTION_DESCRIBE );
             if ( ob.getOpis() != null )
             {
-                currentTrans.append( ob.getOpis() + CommonVariables.ADDRESS_ELEMENT_DELIMITER );
+                currentTrans.append( ob.getOpis());
             }
 
             describeTrans.append( currentTrans );
