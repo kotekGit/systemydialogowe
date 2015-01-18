@@ -17,6 +17,8 @@ import pl.edu.wat.swp.model.Operacjabankowa;
 import pl.edu.wat.swp.model.Subkonto;
 import pl.edu.wat.swp.repository.jpa.impl.TransactionsRepository;
 import pl.edu.wat.swp.repository.jpa.service.KlientRepository;
+import pl.edu.wat.swp.repository.jpa.service.OperacjaBankowaRepository;
+import pl.edu.wat.swp.repository.jpa.service.RodzajOperacjiRepository;
 import pl.edu.wat.swp.repository.jpa.service.SubKontoRepository;
 
 /**
@@ -39,6 +41,9 @@ public class AccountManager
 
     @Autowired
     TransactionsRepository transactionsRepository;
+    
+    @Autowired
+    RodzajOperacjiRepository rodzajOperacjiRepository;
 
     public Login isAccess( Integer userId, String usserPassword )
     {
@@ -150,5 +155,10 @@ public class AccountManager
 
         transaction.setInfo( describeTrans.toString() );
         return transaction;
+    }
+    
+    public Transaction getTransactiontypes() {
+		return null;
+    	
     }
 }
