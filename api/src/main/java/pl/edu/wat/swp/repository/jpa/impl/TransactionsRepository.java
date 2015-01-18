@@ -39,23 +39,23 @@ public class TransactionsRepository
         query.append( "select ob.idOB from Operacjabankowa ob " );
         query.append( "left join ob.rodzajoperacji r " );
         // query.append( "where ob.rodzajoperacji.nazwaRO = :type " );
-        query.append( "where ob.kategoria = :category " );
+        //query.append( "where ob.kategoria = :category " );
         if ( interval.equals( "1" ) )
         {
-            query.append( "and year(ob.dataOB) =  year(current_timestamp()) " );
+            query.append( "where year(ob.dataOB) =  year(current_timestamp()) " );
         }
         else if ( interval.equals( "2" ) )
         {
-            query.append( "and month(ob.dataOB) = month(current_timestamp()) " );
+            query.append( "where month(ob.dataOB) = month(current_timestamp()) " );
         }
         else if ( interval.equals( "3" ) )
         {
-            query.append( "and day(ob.dataOB) =  day(current_timestamp()) " );
+            query.append( "where day(ob.dataOB) =  day(current_timestamp()) " );
         }
 
         TypedQuery typeQuery = em.createQuery( query.toString(), Integer.class );
         // typeQuery.setParameter( "type", type.trim() );
-        typeQuery.setParameter( "category", category.trim() );
+        //typeQuery.setParameter( "category", category.trim() );
         List<Integer> results = typeQuery.getResultList();
 
         //System.out.println( "Size: " + results.size() );
@@ -68,11 +68,12 @@ public class TransactionsRepository
         List<Integer> ids = this.getTransactionsIdByCriteria( type, category, interval );
         List<Operacjabankowa> transactions = new ArrayList<Operacjabankowa>();
 
-        // filtred by type
+        // filtered by type
         for ( Integer id : ids )
         {
             Operacjabankowa operacjabankowa = operacjaBankowaRepository.findOne( id );
-            if ( operacjabankowa.getKategoria().equalsIgnoreCase( category ) )
+            if ( operacjabankowa.getRodzajoperacji() != null && operacjabankowa.getRodzajoperacji().getNazwaRO()!= null
+                    && operacjabankowa.getRodzajoperacji().getNazwaRO().equalsIgnoreCase( type ))
             {
                 transactions.add( operacjabankowa );
             }
