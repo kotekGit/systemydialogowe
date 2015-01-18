@@ -1,6 +1,7 @@
 package pl.edu.wat.swp.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +19,15 @@ import pl.edu.wat.swp.model.Adres;
 import pl.edu.wat.swp.model.Bank;
 import pl.edu.wat.swp.model.Bankomat;
 import pl.edu.wat.swp.model.Oddzial;
+import pl.edu.wat.swp.model.Oferta;
 import pl.edu.wat.swp.model.TestEntity;
 import pl.edu.wat.swp.repository.TestRepository;
 import pl.edu.wat.swp.repository.hibernate.AddresRepository;
-import pl.edu.wat.swp.repository.jpa.AdresRepository;
-import pl.edu.wat.swp.repository.jpa.BankRepository;
-import pl.edu.wat.swp.repository.jpa.BankomatRepository;
-import pl.edu.wat.swp.repository.jpa.OddzialReposirory;
+import pl.edu.wat.swp.repository.jpa.impl.OfferRepositoryImpl;
+import pl.edu.wat.swp.repository.jpa.service.AdresRepository;
+import pl.edu.wat.swp.repository.jpa.service.BankRepository;
+import pl.edu.wat.swp.repository.jpa.service.BankomatRepository;
+import pl.edu.wat.swp.repository.jpa.service.OddzialReposirory;
 
 @Controller
 public class TestController
@@ -47,6 +50,9 @@ public class TestController
     
     @Autowired
     BankRepository bankRepository;
+    
+    @Autowired
+    OfferRepositoryImpl offerRepositoryImpl;
     
 /*    @Autowired
     OddzialPKRepository oddzialPKRepository;
@@ -237,5 +243,49 @@ public class TestController
         oddzialReposirory.save( oddzial3 );*/
         
         return "ok";
+    }
+    
+    public Date addDate(int n)
+    {
+        return new Date(new Date().getTime() + n * 24 * 3600 * 1000 );
+    }
+    
+    public Date minusDate(int n)
+    {
+        return new Date(new Date().getTime() - n * 24 * 3600 * 1000 );
+    }
+    
+    @SuppressWarnings( "deprecation" )
+    @ResponseBody
+    @RequestMapping( value = "/test6")
+    public String testowaMetoda5(  )
+    {
+        Date currentDate = new Date();
+        Oferta oferta = new Oferta();
+        oferta.setDataOd( minusDate( 1 ) );
+        oferta.setDataDo( addDate( 1 ) );
+        oferta.setOpis( "To jest opis oferty");
+        
+        Oferta oferta2 = new Oferta();
+        oferta2.setDataOd( minusDate( 3 )   );
+        oferta2.setDataDo( addDate( 2 ));
+        oferta2.setOpis( "To jest opis oferty 2");
+        
+        Oferta oferta3 = new Oferta();
+        oferta3.setDataOd( minusDate( 20 )  );
+        oferta3.setDataDo( minusDate( 10 )  );
+        oferta3.setOpis( "Tego nie powinno tutaj być");
+        
+        offerRepositoryImpl.save( oferta );
+        offerRepositoryImpl.save( oferta2 );
+        offerRepositoryImpl.save( oferta3 );
+        
+        List<Oferta> allCurrentOffer = offerRepositoryImpl.findCurrentOfferWithoutDuplicate( currentDate );
+        for(Oferta of : allCurrentOffer)
+        {
+            System.out.println(of.getOpis());
+        }
+        
+        return "OK";
     }
 }

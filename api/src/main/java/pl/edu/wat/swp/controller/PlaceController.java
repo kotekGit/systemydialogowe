@@ -32,5 +32,19 @@ public class PlaceController
     {
               return placeManager.getPlacesByCriteria( type, place, district );
     }
+    
+    @RequestMapping( value = "/allplaces", produces = MediaType.APPLICATION_XML_VALUE )
+    @ResponseBody
+    public Address getAllPlaces(  )
+    {
+              return placeManager.getAllPlaces();
+    }
+    
+    @RequestMapping( value = "/alldistricts", produces = MediaType.APPLICATION_XML_VALUE )
+    @ResponseBody
+    public Address getAllDistricts(  )
+    {
+              return placeManager.getAllDistrictss();
+    }
 
 }

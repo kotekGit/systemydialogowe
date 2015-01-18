@@ -1,3 +1,4 @@
+package pl.edu.wat.swp.repository.jpa.service;
 //package pl.edu.wat.swp.repository.jpa;
 //
 //import java.io.Serializable;

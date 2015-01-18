@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import pl.edu.wat.swp.dto.xmls.Login;
 import pl.edu.wat.swp.model.Klient;
-import pl.edu.wat.swp.repository.jpa.KlientRepository;
+import pl.edu.wat.swp.repository.jpa.service.KlientRepository;
 
 /**
  * 

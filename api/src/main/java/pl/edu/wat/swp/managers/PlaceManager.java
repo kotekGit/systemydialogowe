@@ -14,9 +14,9 @@ import pl.edu.wat.swp.helpers.CommonVariables;
 import pl.edu.wat.swp.model.Adres;
 import pl.edu.wat.swp.model.Bankomat;
 import pl.edu.wat.swp.model.Oddzial;
-import pl.edu.wat.swp.repository.jpa.AdresRepository;
-import pl.edu.wat.swp.repository.jpa.BankomatRepository;
-import pl.edu.wat.swp.repository.jpa.OddzialReposirory;
+import pl.edu.wat.swp.repository.jpa.service.AdresRepository;
+import pl.edu.wat.swp.repository.jpa.service.BankomatRepository;
+import pl.edu.wat.swp.repository.jpa.service.OddzialReposirory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -66,6 +66,94 @@ public class PlaceManager
             resultAdres = this.getAllPlacesForCriteria( place, district, null, branches );
         }
         return resultAdres;
+    }
+
+    /**
+     * Get all places unique.
+     * 
+     * @return
+     */
+    public Address getAllPlaces()
+    {
+        Address address = new Address();
+        Set<String> addreses = new HashSet<String>();
+        List<Adres> allAdres = adresRepository.findAll();
+
+        Function<Adres, String> transform = new Function<Adres, String>()
+        {
+
+            @Nullable
+            public String apply( Adres input )
+            {
+                if ( input == null )
+                {
+                    return null;
+                }
+                if ( input.getMiejscowosc() == null )
+                {
+                    return null;
+                }
+                return input.getMiejscowosc();
+            }
+        };
+
+        addreses = new HashSet<String>( Lists.transform( allAdres, transform ) );
+        StringBuilder fullAdres = new StringBuilder();
+        for ( String name : addreses )
+        {
+            if ( name != null )
+            {
+                fullAdres.append( CommonVariables.ADDRESS_DELIMITER );
+                fullAdres.append( name );
+            }
+        }
+
+        address.setFullAdress( fullAdres.toString() );
+        return address;
+    }
+
+    /**
+     * Get all districts unique.
+     * 
+     * @return
+     */
+    public Address getAllDistrictss()
+    {
+        Address address = new Address();
+        Set<String> addreses = new HashSet<String>();
+        List<Adres> allAdres = adresRepository.findAll();
+
+        Function<Adres, String> transform = new Function<Adres, String>()
+        {
+
+            @Nullable
+            public String apply( Adres input )
+            {
+                if ( input == null )
+                {
+                    return null;
+                }
+                if ( input.getDzielnica() == null )
+                {
+                    return null;
+                }
+                return input.getDzielnica();
+            }
+        };
+
+        addreses = new HashSet<String>( Lists.transform( allAdres, transform ) );
+        StringBuilder fullAdres = new StringBuilder();
+        for ( String name : addreses )
+        {
+            if ( name != null )
+            {
+                fullAdres.append( CommonVariables.ADDRESS_DELIMITER );
+                fullAdres.append( name );
+            }
+        }
+
+        address.setFullAdress( fullAdres.toString() );
+        return address;
     }
 
     /**
@@ -161,7 +249,7 @@ public class PlaceManager
             }
         }
 
-        resultAddresses = this.makeXMLFromEntities( new ArrayList<Adres>(filteredByCriteria) );
+        resultAddresses = this.makeXMLFromEntities( new ArrayList<Adres>( filteredByCriteria ) );
         return resultAddresses;
     }
 

@@ -14,5 +14,10 @@ public class CommonVariables
     public static String ADDRESS_STREET = "Street ";
     public static String ADDRESS_LOCAL_NO = "Local ";
     
+    public static String OFFER_DELIMITER = " # ";
+    public static String OFFER_ELEMENT_DELIMITER = ", ";
+    public static String OFFER_NAME = "Offer Name";
+    public static String OFFER_CONTNET = "Content ";
+    
 
 }
