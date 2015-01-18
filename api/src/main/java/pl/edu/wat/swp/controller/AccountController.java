@@ -1,5 +1,7 @@
 package pl.edu.wat.swp.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.Login;
 import pl.edu.wat.swp.dto.xmls.Transaction;
 import pl.edu.wat.swp.managers.AccountManager;
+import pl.edu.wat.swp.model.Rodzajoperacji;
 
 /**
  * 
@@ -57,8 +60,7 @@ public class AccountController {
 
 	@RequestMapping(value = "/transactionTypes", produces = MediaType.APPLICATION_XML_VALUE)
 	@ResponseBody
-	public Transaction getTransactionTypes() {
+	public List<Rodzajoperacji> getTransactionTypes() {
 		return accountManager.getTransactionTypes();
-
 	}
 }

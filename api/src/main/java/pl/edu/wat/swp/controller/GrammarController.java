@@ -1,14 +1,27 @@
 package pl.edu.wat.swp.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import pl.edu.wat.swp.dto.xmls.Address;
 import pl.edu.wat.swp.helpers.GSB;
+import pl.edu.wat.swp.managers.AccountManager;
+import pl.edu.wat.swp.managers.PlaceManager;
+import pl.edu.wat.swp.model.Rodzajoperacji;
 
 
 @Controller
 public class GrammarController {
+	
+	@Autowired
+	AccountManager am;
+	
+	@Autowired
+	PlaceManager pm;
 
 	@RequestMapping(value = "/grammar/gsl/transactions", produces="application/x-gsl")
 	@ResponseBody
@@ -17,7 +30,8 @@ public class GrammarController {
 		StringBuilder s = new StringBuilder();
 		s.append("Request( ?[(i want) (i need) (i'am looking for)] Service ?Service ?Service  )");
 		s.append("Service([");
-		s = GSB.transactionType(s);
+		List<Rodzajoperacji> typy = am.getTransactionTypes();
+		s = GSB.transactionType(s, typy);
 		s = GSB.transactionInterval(s);
 		s = GSB.transactionCategory(s);
 		s.append(")]");
@@ -28,18 +42,48 @@ public class GrammarController {
 	@RequestMapping(value = "/grammar/gsl/places", produces="application/x-gsl")
 	@ResponseBody
 	public String grammarGslPlaces() {
+
 		
 		StringBuilder s = new StringBuilder();
 		s.append("Request( ?[(i want) (i need) (i'am looking for)] Service ?Service ?Service  )");
 		s.append("Service([");
-		s = GSB.transactionType(s);
-		s = GSB.transactionInterval(s);
-		s = GSB.transactionCategory(s);
+		s = GSB.placesType(s);
+		
+		Address adress = pm.getAllPlaces();
+		String p = adress.getFullAdress();
+		String[] places = p.split("#");
+		s = GSB.placesCity(s, places);
+		
+		adress = pm.getAllDistrictss();
+		p = adress.getFullAdress();
+		places = p.split(" #");
+		s = GSB.placesDistrict(s, places);
 		s.append(")]");
 		return s.toString();
 	}
 	
 	
+	@RequestMapping(value = "/grammar/gsl/places", produces="application/x-gsl")
+	@ResponseBody
+	public String grammarSRGS() {
 
+		
+		StringBuilder s = new StringBuilder();
+		s.append("Request( ?[(i want) (i need) (i'am looking for)] Service ?Service ?Service  )");
+		s.append("Service([");
+		s = GSB.placesType(s);
+		
+		Address adress = pm.getAllPlaces();
+		String p = adress.getFullAdress();
+		String[] places = p.split("#");
+		s = GSB.placesCity(s, places);
+		
+		adress = pm.getAllDistrictss();
+		p = adress.getFullAdress();
+		places = p.split(" #");
+		s = GSB.placesDistrict(s, places);
+		s.append(")]");
+		return s.toString();
+	}
 
 }

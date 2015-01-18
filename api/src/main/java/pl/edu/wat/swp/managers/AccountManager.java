@@ -2,6 +2,7 @@ package pl.edu.wat.swp.managers;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,6 +18,7 @@ import pl.edu.wat.swp.model.Operacjabankowa;
 import pl.edu.wat.swp.model.Rodzajoperacji;
 import pl.edu.wat.swp.model.Subkonto;
 import pl.edu.wat.swp.repository.jpa.impl.TransactionsRepository;
+import pl.edu.wat.swp.repository.jpa.service.AdresRepository;
 import pl.edu.wat.swp.repository.jpa.service.KlientRepository;
 import pl.edu.wat.swp.repository.jpa.service.RodzajOperacjiRepository;
 import pl.edu.wat.swp.repository.jpa.service.SubKontoRepository;
@@ -44,6 +46,9 @@ public class AccountManager
     
     @Autowired
     RodzajOperacjiRepository rodzajOperacjiRepository;
+    
+    @Autowired
+    AdresRepository adresRepository;
 
     public Login isAccess( Integer userId, String usserPassword )
     {
@@ -157,15 +162,19 @@ public class AccountManager
         return transaction;
     }
     
-    public Transaction getTransactionTypes() {
-    	Transaction t = new Transaction();
-    	List<Rodzajoperacji> rodzaje = rodzajOperacjiRepository.findAll();
-    	StringBuilder s = new StringBuilder();
-    	for(Rodzajoperacji r : rodzaje) {
-    		s.append(r.getNazwaRO() + " # " );
+    public List<Rodzajoperacji> getTransactionTypes() {
+    	List<Rodzajoperacji> all = rodzajOperacjiRepository.findAll();
+    	List<Rodzajoperacji> distinct = new ArrayList<Rodzajoperacji>();
+    	for (Rodzajoperacji a : all) {
+    		for (Rodzajoperacji d : distinct) {
+    			if (d.getNazwaRO() != a.getNazwaRO()) {
+    				distinct.add(a);
+    				break;
+    			}
+    		}
     	}
-    	t.setInfo(s.toString());
-		return t;
-    	
+    	return distinct;
     }
+    
+    
 }
