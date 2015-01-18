@@ -14,10 +14,10 @@ import pl.edu.wat.swp.dto.xmls.Transaction;
 import pl.edu.wat.swp.helpers.CommonVariables;
 import pl.edu.wat.swp.model.Klient;
 import pl.edu.wat.swp.model.Operacjabankowa;
+import pl.edu.wat.swp.model.Rodzajoperacji;
 import pl.edu.wat.swp.model.Subkonto;
 import pl.edu.wat.swp.repository.jpa.impl.TransactionsRepository;
 import pl.edu.wat.swp.repository.jpa.service.KlientRepository;
-import pl.edu.wat.swp.repository.jpa.service.OperacjaBankowaRepository;
 import pl.edu.wat.swp.repository.jpa.service.RodzajOperacjiRepository;
 import pl.edu.wat.swp.repository.jpa.service.SubKontoRepository;
 
@@ -157,8 +157,15 @@ public class AccountManager
         return transaction;
     }
     
-    public Transaction getTransactiontypes() {
-		return null;
+    public Transaction getTransactionTypes() {
+    	Transaction t = new Transaction();
+    	List<Rodzajoperacji> rodzaje = rodzajOperacjiRepository.findAll();
+    	StringBuilder s = new StringBuilder();
+    	for(Rodzajoperacji r : rodzaje) {
+    		s.append(r.getNazwaRO() + " # " );
+    	}
+    	t.setInfo(s.toString());
+		return t;
     	
     }
 }

@@ -20,38 +20,45 @@ import pl.edu.wat.swp.managers.AccountManager;
  */
 
 @Controller
-public class AccountController
-{
-    private static Logger logger = Logger.getLogger( AccountController.class );
+public class AccountController {
+	private static Logger logger = Logger.getLogger(AccountController.class);
 
-    @Autowired
-    AccountManager accountManager;
+	@Autowired
+	AccountManager accountManager;
 
-    @RequestMapping( value = "/login/{id}/{pass}", produces = MediaType.APPLICATION_XML_VALUE )
-    @ResponseBody
-    public Login checkCredentials( @PathVariable( "id" ) Integer id, @PathVariable( "pass" ) String pass )
-    {
-        logger.debug( "Check credential for userId = " + id + " and users password." );
-        return accountManager.isAccess( id, pass );
+	@RequestMapping(value = "/login/{id}/{pass}", produces = MediaType.APPLICATION_XML_VALUE)
+	@ResponseBody
+	public Login checkCredentials(@PathVariable("id") Integer id,
+			@PathVariable("pass") String pass) {
+		logger.debug("Check credential for userId = " + id
+				+ " and users password.");
+		return accountManager.isAccess(id, pass);
 
-    }
+	}
 
-    @RequestMapping( value = "/getbalance/{id}", produces = MediaType.APPLICATION_XML_VALUE )
-    @ResponseBody
-    public Account checkCredentials( @PathVariable( "id" ) Integer id )
-    {
-        logger.debug( "Check balance for subKonto = " + id );
-        return accountManager.getBalanceForSubKontoId( id );
+	@RequestMapping(value = "/getbalance/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+	@ResponseBody
+	public Account checkCredentials(@PathVariable("id") Integer id) {
+		logger.debug("Check balance for subKonto = " + id);
+		return accountManager.getBalanceForSubKontoId(id);
 
-    }
+	}
 
-    @RequestMapping( value = "/transactions/{type}/{category}/{interval}", produces = MediaType.APPLICATION_XML_VALUE )
-    @ResponseBody
-    public Transaction getTransactions( @PathVariable( "type" ) String type, @PathVariable( "category" ) String category,
-            @PathVariable( "interval" ) String interval )
-    {
-        logger.debug( "Get transactions for criteria." );
-        return accountManager.getTransactionsForCriteria( type, category, interval );
+	@RequestMapping(value = "/transactions/{type}/{category}/{interval}", produces = MediaType.APPLICATION_XML_VALUE)
+	@ResponseBody
+	public Transaction getTransactions(@PathVariable("type") String type,
+			@PathVariable("category") String category,
+			@PathVariable("interval") String interval) {
+		logger.debug("Get transactions for criteria.");
+		return accountManager.getTransactionsForCriteria(type, category,
+				interval);
 
-    }
+	}
+
+	@RequestMapping(value = "/transactionTypes", produces = MediaType.APPLICATION_XML_VALUE)
+	@ResponseBody
+	public Transaction getTransactionTypes() {
+		return accountManager.getTransactionTypes();
+
+	}
 }
