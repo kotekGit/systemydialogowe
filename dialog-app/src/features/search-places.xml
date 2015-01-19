@@ -49,17 +49,15 @@
         </field>
         
         <filled mode="all">
-            <block name="SEARCHING">
-                <prompt>
-                    Please wait a second. System is searching places for you.
-                </prompt>
-                <data name="DATA" srcexpr="PLACE.placesURL(findType, city, district);"/>
-                <assign name="search_results" expr="PLACE.places(DATA);"/>
+            <prompt>
+                Please wait a second. System is searching places for you.
+            </prompt>
+            <data name="DATA" srcexpr="PLACE.placesURL(findType, city, district);"/>
+            <assign name="search_results" expr="PLACE.places(DATA);"/>
                 
-                <prompt>
-                    Our bank <value expr="fildType"/>s in <value expr="city"/> district <value expr="district"/> are <value expr="search_results"/>.
-                </prompt>
-            </block>
+            <prompt>
+                Our bank <value expr="fildType"/>s in <value expr="city"/> district <value expr="district"/> are <value expr="search_results"/>.
+            </prompt>
             
             <return/>
         </filled>

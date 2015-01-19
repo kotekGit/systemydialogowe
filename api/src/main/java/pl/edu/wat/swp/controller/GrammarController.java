@@ -42,15 +42,12 @@ public class GrammarController {
 	@RequestMapping(value = "/grammar/gsl/places", produces="application/x-gsl")
 	@ResponseBody
 	public String grammarGslPlaces() {
-
-		
 		StringBuilder s = new StringBuilder();
 		s.append("Request( ?[(i want) (i need) (i'am looking for)]");
 		s.append(" [(FindType City District)(FindType District City)]");
 		s.append(" ?please");
-		s.append(")");
+		s.append(") ");
 		
-		s.append(" FindType([ ");
 		s = GSB.placesType(s);
 		
 		Address adress = pm.getAllPlaces();
@@ -62,7 +59,7 @@ public class GrammarController {
 		p = adress.getFullAdress();
 		places = p.split("#");
 		s = GSB.placesDistrict(s, places);
-		s.append(" ])");
+		
 		return s.toString();
 	}
 
