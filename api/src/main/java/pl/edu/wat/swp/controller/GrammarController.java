@@ -45,8 +45,12 @@ public class GrammarController {
 
 		
 		StringBuilder s = new StringBuilder();
-		s.append("Request( ?[(i want) (i need) (i'am looking for)] Service ?Service ?Service  )");
-		s.append(" Service([ ");
+		s.append("Request( ?[(i want) (i need) (i'am looking for)]");
+		s.append(" [(FindType City District)(FindType District City)]");
+		s.append(" ?please");
+		s.append(")");
+		
+		s.append(" FindType([ ");
 		s = GSB.placesType(s);
 		
 		Address adress = pm.getAllPlaces();
