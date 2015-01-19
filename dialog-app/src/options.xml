@@ -1,0 +1,54 @@
+<vxml version="2.1">
+    <form id="option-form">
+        <var name="USER_ID"/>
+        
+        <field name="option_choice">
+            <prompt>
+                Choise
+                1 - if you want to check your balance.
+                2 - if you want to check transaction history.
+                3 - if you want to change your data.
+                4 - if you want to check the location of the ATM or bank facility.
+                0 - if you want to listen to a promotional offer.
+            </prompt>
+            <grammar xml:lang="en-us" root="ruleOption">
+                <rule id = "ruleOption">
+                    <one-of>
+                        <item>one</item>
+                        <item>two</item>
+                        <item>three</item>
+                        <item>four</item>
+                        <item>zero</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            <filled>
+                <log expr="'option_choice = ' + option_choice" />
+            </filled>
+        </field>
+        
+        
+        <!-- sprawdzenie stanu konta -->
+        <subdialog name="check_balance" src="features/check-balance.xml" cond="option_choice=='one'">
+            <param name="USER_ID" expr="USER_ID"/>
+        </subdialog>
+        
+        <!-- wyświetlenie historii transakcji -->
+        <subdialog name="check_transaction_history" src="features/check-transaction-history.xml" cond="option_choice=='two'">
+            <param name="USER_ID" expr="USER_ID"/>
+        </subdialog>
+        
+        <!-- zmiana danych -->
+        <subdialog name="change_data" src="features/change-data.xml" cond="option_choice=='three'">
+            <param name="USER_ID" expr="USER_ID"/>
+        </subdialog>
+        
+        <!-- wyszukiwanie placówek i bankomatów -->
+        <subdialog name="search_places" src="features/search-places.xml" cond="option_choice=='four'">
+        </subdialog>
+        
+        <!-- odsłuchanie ofert promocyjnych -->
+        <subdialog name="promotial_offers" src="features/promotial-offers.xml" cond="option_choice=='zero'">
+        </subdialog>
+    </form>
+</vxml>

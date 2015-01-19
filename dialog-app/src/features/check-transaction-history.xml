@@ -1,0 +1,58 @@
+<vxml version="2.1">
+    <script src="../js/help.js"/>
+    <script src="../js/index.js"/>
+    
+    <form>
+        <var name="USER_ID"/>
+        <var name="TRANSACTIONS"/>
+        
+        <grammar srcexpr="TRANSACTIONS.grammarURL() + '#START'" type="text/gsl" maxage="0"/>
+        <initial name="question">
+            <prompt>
+                What kind of transaction you want to check, for what period of time and what kind of category?
+            </prompt>
+        </initial>
+        <noinput cond="true" count="2">
+            <prompt>
+                Sorry you're having trouble. I'll ask you all information sequentially.
+            </prompt>
+            <assign name="question" expr="true"/>
+            <reprompt/>
+        </noinput>
+        <nomatch cond="true" count="2">
+            <prompt>
+                I don't understand, you're having trouble. I'll ask you all information sequentially.
+            </prompt>
+            <assign name="question" expr="true"/>
+            <reprompt/>
+        </nomatch>
+        
+        <field name="TYPE">
+            <prompt>Transaction type?</prompt>
+        </field>
+        <field name="TIME">
+            <prompt>What period of time?</prompt>
+        </field>
+        <field name="CATEGORY">
+            <prompt>What kind of category?</prompt>
+        </field>
+        
+        <filled mode="all">
+            <prompt>
+                Please wait a second. System is checking yours transaction.
+            </prompt>
+            <!-- wywołanie api serwisu -->
+            <data name="DATA" srcexpr="TRANSACTIONS.transactionsURL(USER_ID, PASSWORD);"/>
+            <assign name="TRANSACTIONS" expr="TRANSACTIONS.transactions(DATA);"/>
+            <prompt>
+                All transactions for you chose:
+                <value expr="TYPE"/>
+                <value expr="TIME"/>
+                <value expr="CATEGORY"/>
+                are
+                <value expr="TRANSACTIONS"/>
+            </prompt>
+            <return/>
+        </filled>
+    </form>
+</vxml>

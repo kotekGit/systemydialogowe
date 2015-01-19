@@ -1,0 +1,55 @@
+<vxml version="2.1">
+    <script src="../js/help.js"/>
+    <script src="../js/index.js"/>
+    
+    <form>
+        <grammar src="./change-data-srgs-grammar.xml" type="application/grammar-xml" root="Request" />
+        <var name="USER_ID"/>
+        
+        <initial name="question">
+            <prompt>
+                Now you can change your address details. Tell city, district and street.
+            </prompt>
+            
+            <help>You must provide three things: city, district and street. Please try it now.</help>
+            <noinput count="1">
+                <prompt>Sorry, we can not hear you. Try again.</prompt>
+            </noinput>
+            <noinput count="2">
+                <prompt>Sorry, we can not hear you still.</prompt>
+                <return/>
+            </noinput>
+            <nomatch count="1">
+                <prompt>Repeat please.</prompt>
+            </nomatch>
+            <nomatch count="2">
+                <prompt>
+                    I'm sorry, I can not understand you. I will ask you questions.
+                </prompt>
+                <assign name="question" expr="true"/>
+            </nomatch>
+        </initial>
+        
+        <field name="city">
+            <prompt>Tell city.</prompt>
+            <grammar src="./change-data-srgs-grammar.xml#City" type="application/grammar-xml" />
+        </field>
+        <field name="district">
+            <prompt>Tell district.</prompt>
+            <grammar src="./change-data-srgs-grammar.xml#District" type="application/grammar-xml" />
+        </field>
+        <field name="street">
+            <prompt>Tell street.</prompt>
+            <grammar src="./change-data-srgs-grammar.xml#Street" type="application/grammar-xml" />
+        </field>
+        
+        <filled mode="all">
+            <prompt>
+                You said new address in city <value expr="city"/>, district <value expr="district"/> and street <value expr="street"/>.
+            </prompt>
+            <log expr="'city: ' + city + ', district: ' + district + ',street:' + street"/>
+            <!--<submit expr="ACCOUNT.dataChangeURL(USER_ID, city, district, street);"/> -->
+            <prompt> Your address changed successfully! </prompt>
+        </filled>
+    </form>
+</vxml>

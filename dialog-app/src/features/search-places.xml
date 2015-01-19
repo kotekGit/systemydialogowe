@@ -1,0 +1,67 @@
+<vxml version="2.1">
+    <script src="../js/help.js"/>
+    <script src="../js/index.js"/>
+    
+    <form id="places-form">
+        <grammar srcexpr="PLACE.grammarURL()" type="text/gsl" root="Request" />
+        <var name="search_results"/>
+        
+        <block name="welcome">
+            <prompt>Welcome to the bank system X!</prompt>
+        </block>
+        
+        <initial name="question">
+            <prompt>
+                Do you want to find a bank facility or ATM? Tell city and district.
+            </prompt>
+            
+            <help>You must provide three things: city, district and street. Please try it now.</help>
+            <noinput count="1">
+                <prompt>Sorry, we can not hear you. Try again.</prompt>
+            </noinput>
+            <noinput count="2">
+                <prompt>Sorry, we can not hear you still.</prompt>
+                <goto nextitem="end"/>
+            </noinput>
+            <nomatch count="1">
+                <prompt>Repeat please.</prompt>
+            </nomatch>
+            <nomatch count="2">
+                <prompt>
+                    I'm sorry, I can not understand you. I will ask you questions.
+                </prompt>
+                <assign name="question" expr="true"/>
+                <return/>
+            </nomatch>
+        </initial>
+        
+        <field name="findType">
+            <prompt>Do you want to find a bank facility or ATM?</prompt>
+            <grammar src="PLACE.grammarURL() + '#FindType'" type="text/gsl" />
+        </field>
+        <field name="city">
+            <prompt>Tell city.</prompt>
+            <grammar src="PLACE.grammarURL() + '#City'" type="text/gsl" />
+        </field>
+        <field name="district">
+            <prompt>Tell district.</prompt>
+            <grammar src="PLACE.grammarURL() + '#District'" type="text/gsl" />
+        </field>
+        
+        <filled mode="all">
+            <block name="SEARCHING">
+                <prompt>
+                    Please wait a second. System is searching places for you.
+                </prompt>
+                <data name="DATA" srcexpr="PLACE.placesURL(findType, city, district);"/>
+                <assign name="search_results" expr="PLACE.places(DATA);"/>
+                
+                <prompt>
+                    Our bank <value expr="fildType"/>s in <value expr="city"/> district <value expr="district"/> are <value expr="search_results"/>.
+                </prompt>
+            </block>
+            
+            <return/>
+        </filled>
+    </form>
+</vxml>

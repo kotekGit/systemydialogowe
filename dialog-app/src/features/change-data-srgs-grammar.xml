@@ -1,0 +1,108 @@
+<grammar xml:lang="en-us" root="Request">
+  <rule id="Request" scope="public">
+  	<one-of>
+  	  <item>
+  	    <item>
+  	      <ruleref uri="#Street"/>
+		  <tag>out.street=rules.Street.street;</tag>
+  	    </item>
+  	    <item>
+  	      <ruleref uri="#City"/>
+		  <tag>out.city=rules.City.city;</tag>
+  	    </item>
+  	    <item>
+  	      <ruleref uri="#District"/>
+		  <tag>out.district=rules.District.district;</tag>
+  	    </item>
+  	  </item>
+  	  <item>
+  	    <item>
+  	      <ruleref uri="#Street"/>
+		  <tag>out.street=rules.Street.street;</tag>
+  	    </item>
+  	    <item>
+  	      <ruleref uri="#District"/>
+		  <tag>out.district=rules.District.district;</tag>
+  	    </item>
+  	    <item>
+  	      <ruleref uri="#City"/>
+		  <tag>out.city=rules.City.city;</tag>
+  	    </item>
+  	  </item>
+      <item>
+          <item>
+              <ruleref uri="#District"/>
+              <tag>out.district=rules.District.district;</tag>
+          </item>
+          <item>
+              <ruleref uri="#Street"/>
+              <tag>out.street=rules.Street.street;</tag>
+          </item>
+          <item>
+              <ruleref uri="#City"/>
+              <tag>out.city=rules.City.city;</tag>
+          </item>
+      </item>
+      <item>
+          <item>
+              <ruleref uri="#District"/>
+              <tag>out.district=rules.District.district;</tag>
+          </item>
+          <item>
+              <ruleref uri="#City"/>
+              <tag>out.city=rules.City.city;</tag>
+          </item>
+          <item>
+              <ruleref uri="#Street"/>
+              <tag>out.street=rules.Street.street;</tag>
+          </item>
+      </item>
+      <item>
+          <item>
+              <ruleref uri="#City"/>
+              <tag>out.city=rules.City.city;</tag>
+          </item>
+          <item>
+              <ruleref uri="#District"/>
+              <tag>out.district=rules.District.district;</tag>
+          </item>
+          <item>
+              <ruleref uri="#Street"/>
+              <tag>out.street=rules.Street.street;</tag>
+          </item>
+      </item>
+      <item>
+          <item>
+              <ruleref uri="#City"/>
+              <tag>out.city=rules.City.city;</tag>
+          </item>
+          <item>
+              <ruleref uri="#Street"/>
+              <tag>out.street=rules.Street.street;</tag>
+          </item>
+          <item>
+              <ruleref uri="#District"/>
+              <tag>out.district=rules.District.district;</tag>
+          </item>
+      </item>
+  	</one-of>
+  </rule>
+  <rule id="Street" scope="public">
+  	<one-of>
+  	  <item>roosvelt<tag>out.street="Roosvelt";</tag></item>
+  	  <item>elmont<tag>out.street="Elmont";</tag></item>
+  	</one-of>
+  </rule>
+  <rule id="City" scope="public">
+  	<one-of>
+  	  <item>warsaw<tag>out.city="Warsaw";</tag></item>
+  	  <item>chicago<tag>out.city="Chicago";</tag></item>
+  	</one-of>
+  </rule>
+  <rule id="District" scope="public">
+  	<one-of>
+  	  <item>michigan<tag>out.district="Michigan";</tag></item>
+  	  <item>ontario<tag>out.district="Ontario";</tag></item>
+  	</one-of>
+  </rule>
+</grammar>

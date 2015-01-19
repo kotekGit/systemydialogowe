@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1">
+    <script src="./js/help.js"/>
+    <script src="./js/index.js"/>
+    <form id="auth_form">
+        <var name="USER_ID"/>
+        <var name="isAuthorized"/>
+        <field name="PASSWORD" type="digits">
+            <prompt>
+                Please provide password for account
+                <value expr="USER_ID"/>
+            </prompt>
+        </field>
+        <filled namelist="PASSWORD">
+            <if cond="PASSWORD.length != 4">
+                <prompt>Provided password has invalid length.</prompt>
+                <goto nextitem="PASSWORD"/>
+                <else/>
+                <goto nextitem="CREDENTIALS"/>
+            </if>
+        </filled>
+        <block name="CREDENTIALS">
+            <prompt>
+                Please wait a second. System is checking yours credentials.
+            </prompt>
+            <data name="DATA" srcexpr="ACCOUNT.loginURL(USER_ID, PASSWORD);"/>
+            <assign name="isAuthorized" expr="ACCOUNT.isAuthorized(DATA)"/>
+            
+            <prompt> Credentials checked! </prompt>
+            <log expr="' >> check result = ' + isAuthorized" />
+            <if cond="isAuthorized">
+                <prompt>Password correct!</prompt>
+                <else/>
+                <prompt>Wrong password!</prompt>
+            </if>
+        </block>
+        <filled>
+            <return namelist="isAuthorized"/>
+        </filled>
+    </form>
+</vxml>

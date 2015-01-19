@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version = "2.1" >
+    <form id="main">
+        <!-- powitanie -->
+        <block name="welcome">
+            <prompt>Welcome to the bank system X!</prompt>
+        </block>
+        
+        <!-- logowanie -->
+        <field name="USER_ID" type="digits" expr="1"><!--tymczasowo expr-->
+            <prompt>Please provide your ID.</prompt>
+        </field>
+        
+        <!--<subdialog name="checkCredentials" src="authentication.xml">
+         <param name="USER_ID" expr="USER_ID"/>
+         <filled namelist="checkCredentials">
+         <if cond="checkCredentials.isAuthorized==false">
+         <goto nextitem="end"/>
+         </if>
+         </filled>
+         </subdialog>-->
+        
+        <!-- opcje do wyboru -->
+        <subdialog name="options" src="options.xml">
+            <param name="USER_ID" expr="USER_ID"/>
+        </subdialog>
+        
+        <!-- zapytanie czy użytkownik chce coś jeszcze zrobić -->
+        <field name="search_again" type="boolean">
+            <prompt> Do you want to search for something else? Sey yes or no. </prompt>
+            <filled>
+                <clear namelist="search_again" />
+                <if cond="search_again">
+                    <clear namelist = "options"/>
+                    <goto nextitem = "options"/>
+                </if>
+            </filled>
+        </field>
+        
+        <!-- pożegnianie -->
+        <block name="end">
+            <prompt> Thank you for using our services. Have a nice day! </prompt>
+        </block>
+    </form>
+</vxml>

@@ -1,0 +1,23 @@
+<vxml version="2.1">
+    <script src="../js/help.js"/>
+    <script src="../js/index.js"/>
+    
+    <form>
+        <var name="promotial_offers" expr=""/>
+        
+        <block>
+            <prompt>
+                Please wait a second. System is searching offers.
+            </prompt>
+            <data name="DATA" srcexpr="OFFER.allOfferURL();"/><!-- zapytanie do api -->
+            <assign name="promotial_offers" expr="OFFER.allOffer(DATA);"/>
+            
+            <log expr="'promotial offers:' + promotial_offers" />
+            <if cond="promotial_offers.lenght!=0">
+                <prompt> <value expr="promotial_offers"/> </prompt>
+                <else/>
+                <prompt> Sorry, we don't have current promotional offers. </prompt>
+            </if>
+        </block>
+    </form>
+</vxml>

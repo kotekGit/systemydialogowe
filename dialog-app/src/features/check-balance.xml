@@ -1,0 +1,22 @@
+<vxml version="2.1">
+    <script src="../js/help.js"/>
+    <script src="../js/index.js"/>
+    
+    <form>
+        <var name="USER_ID"/>
+        <var name="BALANCE" />
+        
+        <block name="CREDENTIALS">
+            <prompt>
+                Please wait a second. System is checking your balance.
+            </prompt>
+            
+            <data name="DATA" srcexpr="ACCOUNT.getBalanceURL(USER_ID);"/>
+            <assign name="BALANCE" expr="ACCOUNT.getBalance(DATA);"/>
+            
+            <prompt>
+                Your account balance is <value expr="BALANCE"/>.
+            </prompt>
+        </block>
+    </form>
+</vxml>
