@@ -22,7 +22,7 @@ public class GSB {
 	}
 
 	public static StringBuilder transactionInterval(StringBuilder s) {
-		s.append("[(month) (last mont)] {<time \"month\">} ");
+		s.append("[(month) (last month)] {<time \"month\">} ");
 		s.append("[(year) (last year)] {<time \"year\">} ");
 		s.append("[(today) (this day)] {<time \"today\">} ");
 		return s;
@@ -42,22 +42,26 @@ public class GSB {
 	}
 
 	public static StringBuilder placesCity(StringBuilder s, String[] places) {
-		String cities = null;
+		String cities = "";
 		for (String p : places) {
-			String tmp = p + " { <city \""+p+"\"> } ";
-			cities += tmp;
+			if (p != null && p.length() >=2 ) {
+				String tmp = p + " { <city \"" + p + "\"> } ";
+				cities += tmp;
+			}
 		}
-		s.append("City(?in[ "+cities+" ]} ");
+		s.append("City(?in[ " + cities + " ]} ");
 		return s;
 	}
 
 	public static StringBuilder placesDistrict(StringBuilder s, String[] places) {
-		String district = null;
+		String district = "";
 		for (String p : places) {
-			String tmp = p + " { <district \""+p+"\"> } ";
-			district += tmp;
+			if (p != null && p.length() >=2 ) {
+				String tmp = p + " { <district \"" + p + "\"> } ";
+				district += tmp;
+			}
 		}
-		s.append("District(?in[ "+district+" ]} ");
+		s.append("District(?in[ " + district + " ]} ");
 		return s;
 	}
 

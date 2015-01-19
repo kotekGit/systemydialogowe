@@ -7,7 +7,7 @@ package pl.edu.wat.swp.helpers;
  */
 public class CommonVariables
 {
-    public static final String ADDRESS_DELIMITER = " # ";
+    public static final String ADDRESS_DELIMITER = "#";
     public static final String ADDRESS_ELEMENT_DELIMITER = ", ";
     public static final String ADDRESS_CITY = "City ";
     public static final String ADDRESS_DISTRICT = "District ";
@@ -19,9 +19,9 @@ public class CommonVariables
     public static final String OFFER_NAME = "Offer Name";
     public static final String OFFER_CONTNET = "Content ";
     
-    public static final String DOLLAR = " $";
+    public static final String DOLLAR = "$";
     
-    public static final String TRANSACTION_DELIMITER = " # ";
+    public static final String TRANSACTION_DELIMITER = "#";
     public static final String TRANSACTION_ELEMENT_DELIMITER = ", ";
     public static final String TRANSACTION_DATE = "Date ";
     public static final String TRANSACTION_DESCRIBE = "Describe ";

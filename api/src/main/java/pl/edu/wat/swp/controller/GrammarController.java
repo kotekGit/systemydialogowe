@@ -29,12 +29,12 @@ public class GrammarController {
 		
 		StringBuilder s = new StringBuilder();
 		s.append("Request( ?[(i want) (i need) (i'am looking for)] Service ?Service ?Service  )");
-		s.append("Service([");
+		s.append(" Service([ ");
 		List<Rodzajoperacji> typy = am.getTransactionTypes();
 		s = GSB.transactionType(s, typy);
 		s = GSB.transactionInterval(s);
 		s = GSB.transactionCategory(s);
-		s.append(")]");
+		s.append(" ])");
 		return s.toString();
 	}
 	
@@ -46,7 +46,7 @@ public class GrammarController {
 		
 		StringBuilder s = new StringBuilder();
 		s.append("Request( ?[(i want) (i need) (i'am looking for)] Service ?Service ?Service  )");
-		s.append("Service([");
+		s.append(" Service([ ");
 		s = GSB.placesType(s);
 		
 		Address adress = pm.getAllPlaces();
@@ -56,34 +56,10 @@ public class GrammarController {
 		
 		adress = pm.getAllDistrictss();
 		p = adress.getFullAdress();
-		places = p.split(" #");
+		places = p.split("#");
 		s = GSB.placesDistrict(s, places);
-		s.append(")]");
+		s.append(" ])");
 		return s.toString();
 	}
-	
-	
-//	@RequestMapping(value = "/grammar/gsl/places", produces="application/x-gsl")
-//	@ResponseBody
-//	public String grammarSRGS() {
-//
-//		
-//		StringBuilder s = new StringBuilder();
-//		s.append("Request( ?[(i want) (i need) (i'am looking for)] Service ?Service ?Service  )");
-//		s.append("Service([");
-//		s = GSB.placesType(s);
-//		
-//		Address adress = pm.getAllPlaces();
-//		String p = adress.getFullAdress();
-//		String[] places = p.split("#");
-//		s = GSB.placesCity(s, places);
-//		
-//		adress = pm.getAllDistrictss();
-//		p = adress.getFullAdress();
-//		places = p.split(" #");
-//		s = GSB.placesDistrict(s, places);
-//		s.append(")]");
-//		return s.toString();
-//	}
 
 }
