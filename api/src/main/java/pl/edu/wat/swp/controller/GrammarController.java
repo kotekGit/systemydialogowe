@@ -45,15 +45,15 @@ public class GrammarController {
 		StringBuilder s = new StringBuilder();
 		s.append("Request( ?[(i want) (i need) (i'am looking for)]");
 		s.append(" [");
-		s.append("(FindType City District)(FindType District City)]");
-		s.append("(City FindType District)(City District FindType)]");
-		s.append("(District City FindType)(District FindType City)]");
-		s.append("(FindType City)(FindType District)]");
-		s.append("(City FindType)(City District)]");
-		s.append("(District City)(District FindType)]");
+		s.append("(FindType City District)(FindType District City)");
+		s.append("(City FindType District)(City District FindType)");
+		s.append("(District City FindType)(District FindType City)");
+		s.append("(FindType City)(FindType District)");
+		s.append("(City FindType)(City District)");
+		s.append("(District City)(District FindType)");
 		s.append("] ");
 		
-		s.append(" ?please");
+		s.append("?please");
 		s.append(") ");
 		
 		s = GSB.placesType(s);

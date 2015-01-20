@@ -45,11 +45,11 @@ public class GSB {
 		String cities = "";
 		for (String p : places) {
 			if (p != null && p.length() >=2 ) {
-				String tmp = p + " { <city \"" + p + "\"> } ";
+				String tmp = p.toLowerCase() + " { <city \"" + p + "\"> } ";
 				cities += tmp;
 			}
 		}
-		s.append("City(?in[ " + cities + " ]} ");
+		s.append("City(?in[ " + cities + " ]) ");
 		return s;
 	}
 
@@ -57,11 +57,11 @@ public class GSB {
 		String district = "";
 		for (String p : places) {
 			if (p != null && p.length() >=2 ) {
-				String tmp = p + " { <district \"" + p + "\"> } ";
+				String tmp = p.toLowerCase() + " { <district \"" + p + "\"> } ";
 				district += tmp;
 			}
 		}
-		s.append("District(?in[ " + district + " ]} ");
+		s.append("District(?in[ " + district + " ]) ");
 		return s;
 	}
 
