@@ -5,11 +5,7 @@
     <form id="places-form">
         <grammar srcexpr="PLACE.grammarURL()" type="text/gsl" root="Request" />
         <var name="search_results"/>
-        
-        <block name="welcome">
-            <prompt>Welcome to the bank system X!</prompt>
-        </block>
-        
+                
         <initial name="question">
             <prompt>
                 Do you want to find a bank facility or ATM? Tell city and district.
@@ -54,9 +50,9 @@
             </prompt>
             <data name="DATA" srcexpr="PLACE.placesURL(findType, city, district);"/>
             <assign name="search_results" expr="PLACE.places(DATA);"/>
-                
+            <log expr="'found places: ' + search_results"/>
             <prompt>
-                Our bank <value expr="fildType"/>s in <value expr="city"/> district <value expr="district"/> are <value expr="search_results"/>.
+                Our bank <value expr="findType"/>s in <value expr="city"/> district <value expr="district"/> are <value expr="search_results"/>.
             </prompt>
             
             <return/>

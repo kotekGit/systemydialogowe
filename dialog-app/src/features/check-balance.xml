@@ -2,7 +2,7 @@
     <script src="../js/help.js"/>
     <script src="../js/index.js"/>
     
-    <form>
+    <form id="CheckBalance">
         <var name="USER_ID"/>
         <var name="BALANCE" />
         
@@ -17,6 +17,8 @@
             <prompt>
                 Your account balance is <value expr="BALANCE"/>.
             </prompt>
+            
+            <return namelist="BALANCE"/>
         </block>
     </form>
 </vxml>

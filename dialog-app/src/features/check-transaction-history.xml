@@ -5,27 +5,30 @@
     <form>
         <var name="USER_ID"/>
         <var name="TRANSACTIONS"/>
-        
-        <grammar srcexpr="TRANSACTIONS.grammarURL() + '#START'" type="text/gsl" maxage="0"/>
+
+        <grammar srcexpr="TRANSACTIONS.grammarURL()" type="text/gsl" root="Request"/>
         <initial name="question">
             <prompt>
                 What kind of transaction you want to check, for what period of time and what kind of category?
             </prompt>
+            
+            <help>You must provide three things: transaction type, time and category. Please try it again.</help>
+            
+            <noinput cond="true" count="2">
+                <prompt>
+                    Sorry you're having trouble. I'll ask you all information sequentially.
+                </prompt>
+                <assign name="question" expr="true"/>
+                <reprompt/>
+            </noinput>
+            <nomatch cond="true" count="2">
+                <prompt>
+                    I don't understand, you're having trouble. I'll ask you all information sequentially.
+                </prompt>
+                <assign name="question" expr="true"/>
+                <reprompt/>
+            </nomatch>
         </initial>
-        <noinput cond="true" count="2">
-            <prompt>
-                Sorry you're having trouble. I'll ask you all information sequentially.
-            </prompt>
-            <assign name="question" expr="true"/>
-            <reprompt/>
-        </noinput>
-        <nomatch cond="true" count="2">
-            <prompt>
-                I don't understand, you're having trouble. I'll ask you all information sequentially.
-            </prompt>
-            <assign name="question" expr="true"/>
-            <reprompt/>
-        </nomatch>
         
         <field name="TYPE">
             <prompt>Transaction type?</prompt>
@@ -41,7 +44,7 @@
             <prompt>
                 Please wait a second. System is checking yours transaction.
             </prompt>
-            <!-- wywołanie api serwisu -->
+            <!-- wywo?anie api serwisu -->
             <data name="DATA" srcexpr="TRANSACTIONS.transactionsURL(USER_ID, PASSWORD);"/>
             <assign name="TRANSACTIONS" expr="TRANSACTIONS.transactions(DATA);"/>
             <prompt>

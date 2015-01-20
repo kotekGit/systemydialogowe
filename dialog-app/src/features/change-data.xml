@@ -47,9 +47,10 @@
             <prompt>
                 You said new address in city <value expr="city"/>, district <value expr="district"/> and street <value expr="street"/>.
             </prompt>
-            <log expr="'city: ' + city + ', district: ' + district + ',street:' + street"/>
-            <!--<submit expr="ACCOUNT.dataChangeURL(USER_ID, city, district, street);"/> -->
-            <prompt> Your address changed successfully! </prompt>
+	    <log expr="'city: ' + city + ', district: ' + district + ',street:' + street"/>
+            <data name="data" srcexpr="ACCOUNT.dataChangeURL(USER_ID, city, district, street);"/>
+	    <prompt> Your address changed successfully! </prompt>
+            <return/>
         </filled>
     </form>
 </vxml>

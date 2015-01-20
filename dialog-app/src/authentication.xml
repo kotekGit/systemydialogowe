@@ -2,7 +2,7 @@
 <vxml version="2.1">
     <script src="./js/help.js"/>
     <script src="./js/index.js"/>
-    <form id="auth_form">
+    <form id="authForm">
         <var name="USER_ID"/>
         <var name="isAuthorized"/>
         <field name="PASSWORD" type="digits">
@@ -15,7 +15,7 @@
             <if cond="PASSWORD.length != 4">
                 <prompt>Provided password has invalid length.</prompt>
                 <goto nextitem="PASSWORD"/>
-                <else/>
+            <else/>
                 <goto nextitem="CREDENTIALS"/>
             </if>
         </filled>
@@ -24,18 +24,18 @@
                 Please wait a second. System is checking yours credentials.
             </prompt>
             <data name="DATA" srcexpr="ACCOUNT.loginURL(USER_ID, PASSWORD);"/>
+            <log expr="'success:' + ACCOUNT.auth(DATA)"/>
             <assign name="isAuthorized" expr="ACCOUNT.isAuthorized(DATA)"/>
             
             <prompt> Credentials checked! </prompt>
-            <log expr="' >> check result = ' + isAuthorized" />
-            <if cond="isAuthorized">
+	    <log expr="' >> check result = ' + isAuthorized" />
+            <if cond="isAuthorized==true">
                 <prompt>Password correct!</prompt>
-                <else/>
+            <else/>
                 <prompt>Wrong password!</prompt>
             </if>
-        </block>
-        <filled>
+            <log expr="'auth comunicat readed'"/>
             <return namelist="isAuthorized"/>
-        </filled>
+        </block>
     </form>
 </vxml>

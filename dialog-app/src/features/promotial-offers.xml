@@ -3,21 +3,25 @@
     <script src="../js/index.js"/>
     
     <form>
-        <var name="promotial_offers" expr=""/>
-        
+        <var name="promotial_offers"/>
+
         <block>
             <prompt>
                 Please wait a second. System is searching offers.
             </prompt>
-            <data name="DATA" srcexpr="OFFER.allOfferURL();"/><!-- zapytanie do api -->
+
+            <data name="DATA" srcexpr="OFFER.allOfferURL();"/>
             <assign name="promotial_offers" expr="OFFER.allOffer(DATA);"/>
-            
-            <log expr="'promotial offers:' + promotial_offers" />
+
             <if cond="promotial_offers.lenght!=0">
+                <log expr="'data:' + DATA" />
+                <log expr="'promotial offers:' + promotial_offers" />
                 <prompt> <value expr="promotial_offers"/> </prompt>
-                <else/>
+            <else/>
                 <prompt> Sorry, we don't have current promotional offers. </prompt>
             </if>
+
+            <return/>
         </block>
     </form>
 </vxml>

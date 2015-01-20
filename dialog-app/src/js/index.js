@@ -11,8 +11,11 @@ var ACCOUNT = {
         var url = URL + "login/"+NIK+"/"+Haslo;
         return url;
     },
+    auth : function(xml) {
+        return XML.get(xml, "status");
+    },
     isAuthorized : function(xml) {
-        return Boolean(XML.get(xml, "status"));
+        return XML.get(xml, "status") == 'true';
     },
     getBalanceURL : function(ID) {
         return URL + "getbalance/" + ID;
@@ -21,7 +24,10 @@ var ACCOUNT = {
         return XML.get(xml, "balance");
     },
     dataChangeURL : function(ID, PLACE, DISTRICT, STREET) {
-        return Url + "/changedata/"+Id+"/"+PLACE+"/"+DISTRICT+"/"+STREET;
+        return URL + "changedata/"+ID+"/"+PLACE+"/"+DISTRICT+"/"+STREET;
+    },
+    getDataChangeStatus : function(xml) {
+        return XML.get(xml, "status");
     }
 }
 
@@ -29,14 +35,20 @@ var OFFER = {
     allOfferURL : function() {
         return URL + "alloffer";
     },
+    offerExist : function() {
+        return XML.checkExist(xml, "nameAndContents");
+    },
     allOffer : function(xml) {
-        return XML.get(xml, "nameAndContents");
+        var body = null;
+        var exist = xml != null ? XML.checkExist(xml, "nameAndContents") : false;
+        if(exist) body = XML.get(xml, "nameAndContents");
+        return body == null ? '' : body;
     }
 };
 
 var PLACE = {
     placesURL : function(TYPE, PLACE, DISTRICT) {
-        var typeId = TYPEtoLowerCase() == 'atm' ? 1 : 2;
+        var typeId = TYPE.toLowerCase() == 'atm' ? 1 : 2;
         return URL + "places/"+typeId+"/"+PLACE+"/"+DISTRICT;
     },
     places : function(xml) {
@@ -69,4 +81,3 @@ var TRANSACTIONS = {
     grammarURL : function() {
         return GrammarURL + "gsl/transactions";
     }
-};

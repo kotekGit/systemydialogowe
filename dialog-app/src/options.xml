@@ -1,7 +1,7 @@
 <vxml version="2.1">
     <form id="option-form">
         <var name="USER_ID"/>
-        
+        <var name="CANCEL" expr="false"/>
         <field name="option_choice">
             <prompt>
                 Choise
@@ -10,6 +10,7 @@
                 3 - if you want to change your data.
                 4 - if you want to check the location of the ATM or bank facility.
                 0 - if you want to listen to a promotional offer.
+                cancel - if you want to cancel.
             </prompt>
             <grammar xml:lang="en-us" root="ruleOption">
                 <rule id = "ruleOption">
@@ -19,15 +20,19 @@
                         <item>three</item>
                         <item>four</item>
                         <item>zero</item>
+                        <item>cancel</item>
                     </one-of>
                 </rule>
             </grammar>
-            <filled>
-                <log expr="'option_choice = ' + option_choice" />
-            </filled>
+	    <filled>
+		<log expr="'option_choice = ' + option_choice" />
+                <if cond="option_choice=='cancel'">
+                    <assign expr="true" name="CANCEL" />
+                    <goto nextitem="option_end"/>
+                </if>
+	    </filled>
         </field>
-        
-        
+	
         <!-- sprawdzenie stanu konta -->
         <subdialog name="check_balance" src="features/check-balance.xml" cond="option_choice=='one'">
             <param name="USER_ID" expr="USER_ID"/>
@@ -49,6 +54,11 @@
         
         <!-- odsłuchanie ofert promocyjnych -->
         <subdialog name="promotial_offers" src="features/promotial-offers.xml" cond="option_choice=='zero'">
-        </subdialog>
+        </subdialog>    
+
+	<prompt>Test alfer subdialog.</prompt>
+        <block name="option_end">
+            <return listname="CANCEL"/>
+        </block>
     </form>
 </vxml>

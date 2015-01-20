@@ -96,13 +96,14 @@
   <rule id="City" scope="public">
   	<one-of>
   	  <item>warsaw<tag>out.city="Warsaw";</tag></item>
-  	  <item>chicago<tag>out.city="Chicago";</tag></item>
+  	  <item>cracow<tag>out.city="Cracow";</tag></item>
+  	  <item>wroclaw<tag>out.city="Wroclaw";</tag></item>
   	</one-of>
   </rule>
   <rule id="District" scope="public">
   	<one-of>
-  	  <item>michigan<tag>out.district="Michigan";</tag></item>
-  	  <item>ontario<tag>out.district="Ontario";</tag></item>
+  	  <item>bemowo<tag>out.district="Bemowo";</tag></item>
+  	  <item>wola<tag>out.district="Wola";</tag></item>
   	</one-of>
   </rule>
 </grammar>
