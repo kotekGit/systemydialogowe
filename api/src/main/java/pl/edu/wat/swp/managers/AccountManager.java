@@ -169,6 +169,7 @@ public class AccountManager
     {
         List<Rodzajoperacji> all = rodzajOperacjiRepository.findAll();
         List<Rodzajoperacji> distinct = new ArrayList<Rodzajoperacji>();
+        distinct.add(all.get(0));
         for ( Rodzajoperacji a : all )
         {
             for ( Rodzajoperacji d : distinct )
