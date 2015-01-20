@@ -8,11 +8,14 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import pl.edu.wat.swp.dto.xmls.Account;
+import pl.edu.wat.swp.dto.xmls.ChangeData;
 import pl.edu.wat.swp.dto.xmls.Login;
 import pl.edu.wat.swp.dto.xmls.Transaction;
 import pl.edu.wat.swp.helpers.CommonVariables;
+import pl.edu.wat.swp.model.Adres;
 import pl.edu.wat.swp.model.Klient;
 import pl.edu.wat.swp.model.Operacjabankowa;
 import pl.edu.wat.swp.model.Rodzajoperacji;
@@ -43,10 +46,10 @@ public class AccountManager
 
     @Autowired
     TransactionsRepository transactionsRepository;
-    
+
     @Autowired
     RodzajOperacjiRepository rodzajOperacjiRepository;
-    
+
     @Autowired
     AdresRepository adresRepository;
 
@@ -147,12 +150,12 @@ public class AccountManager
 
             if ( ob.getDataOB() != null )
             {
-                currentTrans.append( sdf.format( ob.getDataOB() ) + CommonVariables.TRANSACTION_ELEMENT_DELIMITER);
+                currentTrans.append( sdf.format( ob.getDataOB() ) + CommonVariables.TRANSACTION_ELEMENT_DELIMITER );
             }
             currentTrans.append( CommonVariables.TRANSACTION_DESCRIBE );
             if ( ob.getOpis() != null )
             {
-                currentTrans.append( ob.getOpis());
+                currentTrans.append( ob.getOpis() );
             }
 
             describeTrans.append( currentTrans );
@@ -161,20 +164,67 @@ public class AccountManager
         transaction.setInfo( describeTrans.toString() );
         return transaction;
     }
-    
-    public List<Rodzajoperacji> getTransactionTypes() {
-    	List<Rodzajoperacji> all = rodzajOperacjiRepository.findAll();
-    	List<Rodzajoperacji> distinct = new ArrayList<Rodzajoperacji>();
-    	for (Rodzajoperacji a : all) {
-    		for (Rodzajoperacji d : distinct) {
-    			if (d.getNazwaRO() != a.getNazwaRO()) {
-    				distinct.add(a);
-    				break;
-    			}
-    		}
-    	}
-    	return distinct;
+
+    public List<Rodzajoperacji> getTransactionTypes()
+    {
+        List<Rodzajoperacji> all = rodzajOperacjiRepository.findAll();
+        List<Rodzajoperacji> distinct = new ArrayList<Rodzajoperacji>();
+        for ( Rodzajoperacji a : all )
+        {
+            for ( Rodzajoperacji d : distinct )
+            {
+                if ( d.getNazwaRO() != a.getNazwaRO() )
+                {
+                    distinct.add( a );
+                    break;
+                }
+            }
+        }
+        return distinct;
     }
-    
-    
+
+    /**
+     * Change customer address data.
+     * @param id
+     * @param place
+     * @param district
+     * @param street
+     * @return
+     */
+    public ChangeData changeCustomerData( Integer id, String place, String district, String street )
+    {
+        ChangeData changeData = new ChangeData();
+        changeData.setStatus( true );
+        Klient klient = null;
+
+        try
+        {
+            klient = klientRepository.findBynik( id );
+        }
+        catch ( NullPointerException npe )
+        {
+            logger.debug( "User not found!" );
+            changeData.setStatus( false );
+            return changeData;
+        }
+
+        if ( klient != null && klient.getIdAdresu() != null )
+        {
+            Adres adres = klient.getIdAdresu();
+            adres.setMiejscowosc( place );
+            adres.setDzielnica( district );
+            adres.setUlica( street );
+            adresRepository.save( adres );
+            changeData.setStatus( true );
+            return changeData;
+        }
+        else
+        {
+            logger.debug( "User don't have address" );
+            changeData.setStatus( false );
+            return changeData;
+        }
+
+    }
+
 }
