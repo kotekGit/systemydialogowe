@@ -44,7 +44,12 @@ public class GrammarController {
 	public String grammarGslPlaces() {
 		StringBuilder s = new StringBuilder();
 		s.append("Request( ?[(i want) (i need) (i'am looking for)]");
-		s.append(" [(FindType City District)(FindType District City)]");
+		s.append(" [");
+		s.append("(FindType City District)(FindType District City)]");
+		s.append("(City FindType District)(City District FindType)]");
+		s.append("(District City FindType)(District FindType City)]");
+		s.append("] ");
+		
 		s.append(" ?please");
 		s.append(") ");
 		
