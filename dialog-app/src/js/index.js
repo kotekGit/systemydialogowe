@@ -72,8 +72,8 @@ var PLACE = {
 };
 
 var TRANSACTIONS = {
-    transactionsURL : function(TYPE, CATEGORY, INTERVAL) {
-        return URL + "transactions/"+TYPE+"/"+CATEGORY+"/"+INTERVAL;
+    transactionsURL : function(USER_ID, TYPE, CATEGORY, INTERVAL) {
+        return URL + "transactions/"+USER_ID+"/"+TYPE+"/"+CATEGORY+"/"+INTERVAL;
     },
     transactions : function(xml) {
         return XML.get(xml, "info");
