@@ -86,7 +86,8 @@ public class TransactionsRepository
             
             if (klient.equals(k)) {
                 if ( operacjabankowa.getRodzajoperacji() != null && operacjabankowa.getRodzajoperacji().getNazwaRO()!= null
-                        && operacjabankowa.getRodzajoperacji().getNazwaRO().equalsIgnoreCase( type ))
+                        && operacjabankowa.getRodzajoperacji().getNazwaRO().equalsIgnoreCase( type )
+                        && operacjabankowa.getKategoria().equals(category))
                 {
                     transactions.add( operacjabankowa );
                 }
