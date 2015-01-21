@@ -1,6 +1,7 @@
 package pl.edu.wat.swp.repository.jpa.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,8 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import pl.edu.wat.swp.model.Klient;
+import pl.edu.wat.swp.model.Kontobankowe;
 import pl.edu.wat.swp.model.Operacjabankowa;
+import pl.edu.wat.swp.model.Subkonto;
+import pl.edu.wat.swp.repository.jpa.service.KlientRepository;
+import pl.edu.wat.swp.repository.jpa.service.KontoBankoweRepository;
 import pl.edu.wat.swp.repository.jpa.service.OperacjaBankowaRepository;
+import pl.edu.wat.swp.repository.jpa.service.SubKontoRepository;
 
 /**
  * 
@@ -29,6 +36,9 @@ public class TransactionsRepository
 
     @Autowired
     OperacjaBankowaRepository operacjaBankowaRepository;
+
+    @Autowired
+    KlientRepository klientRepository;
 
     @SuppressWarnings( { "rawtypes", "unchecked" } )
     public List<Integer> getTransactionsIdByCriteria( String type, String category, String interval )
@@ -62,8 +72,7 @@ public class TransactionsRepository
         return results;
     }
 
-    @SuppressWarnings( { "rawtypes", "unchecked" } )
-    public List<Operacjabankowa> getTransactionsByCriteria( String type, String category, String interval )
+    public List<Operacjabankowa> getTransactionsByCriteria( Klient klient, String type, String category, String interval )
     {
         List<Integer> ids = this.getTransactionsIdByCriteria( type, category, interval );
         List<Operacjabankowa> transactions = new ArrayList<Operacjabankowa>();
@@ -72,10 +81,16 @@ public class TransactionsRepository
         for ( Integer id : ids )
         {
             Operacjabankowa operacjabankowa = operacjaBankowaRepository.findOne( id );
-            if ( operacjabankowa.getRodzajoperacji() != null && operacjabankowa.getRodzajoperacji().getNazwaRO()!= null
-                    && operacjabankowa.getRodzajoperacji().getNazwaRO().equalsIgnoreCase( type ))
-            {
-                transactions.add( operacjabankowa );
+            
+            Klient k = operacjabankowa.getNik();
+            
+            if (klient.equals(k)) {
+                if ( operacjabankowa.getRodzajoperacji() != null && operacjabankowa.getRodzajoperacji().getNazwaRO()!= null
+                        && operacjabankowa.getRodzajoperacji().getNazwaRO().equalsIgnoreCase( type )
+                        && operacjabankowa.getKategoria().equals(category))
+                {
+                    transactions.add( operacjabankowa );
+                }
             }
 
         }

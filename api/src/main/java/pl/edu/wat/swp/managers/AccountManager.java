@@ -123,12 +123,27 @@ public class AccountManager
      * @param type
      * @param food
      * @param interval
+     * @param interval2 
      * @return
      */
-    public Transaction getTransactionsForCriteria( String type, String category, String interval )
+    public Transaction getTransactionsForCriteria(Integer id, String type, String category, String interval )
     {
         Transaction transaction = new Transaction();
-        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( type, category, interval );
+        
+        
+        Klient klient = null;
+
+        try
+        {
+            klient = klientRepository.findBynik( id );
+        }
+        catch ( NullPointerException npe )
+        {
+            logger.debug( "User not found!" );
+        }
+        
+        
+        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria(klient, type, category, interval );
         transaction = this.makeXMLForEntities( transactions );
         return transaction;
     }

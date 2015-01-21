@@ -49,7 +49,7 @@
                 Please wait a second. System is checking yours transaction.
             </prompt>
 
-            <data name="DATA" srcexpr="TRANSACTIONS.transactionsURL(type, category, time);"/>
+            <data name="DATA" srcexpr="TRANSACTIONS.transactionsURL(USER_ID, type, category, time);"/>
             <assign name="foundTransactions" expr="TRANSACTIONS.transactions(DATA);"/>
             
             <if cond="foundTransactions!='Not found'">
