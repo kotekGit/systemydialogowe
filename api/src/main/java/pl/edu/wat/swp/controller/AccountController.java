@@ -50,13 +50,13 @@ public class AccountController
 
     }
 
-    @RequestMapping( value = "/transactions/{type}/{category}/{interval}", produces = MediaType.APPLICATION_XML_VALUE )
+    @RequestMapping( value = "/transactions/{id}/{type}/{category}/{interval}", produces = MediaType.APPLICATION_XML_VALUE )
     @ResponseBody
-    public Transaction getTransactions( @PathVariable( "type" ) String type,
+    public Transaction getTransactions( @PathVariable( "id" ) Integer id, @PathVariable( "type" ) String type,
             @PathVariable( "category" ) String category, @PathVariable( "interval" ) String interval )
     {
         logger.debug( "Get transactions for criteria." );
-        return accountManager.getTransactionsForCriteria( type, category, interval );
+        return accountManager.getTransactionsForCriteria(id, type, category, interval );
 
     }
 
