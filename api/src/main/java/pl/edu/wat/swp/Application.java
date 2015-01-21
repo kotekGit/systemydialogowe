@@ -5,10 +5,11 @@ import java.util.Arrays;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan
@@ -36,6 +37,13 @@ public class Application
                 logger.debug( beanName );
             }
         }
+    }
+    
+    @Bean
+    public FilterRegistrationBean siteMeshFilter() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(new MySiteMeshFilter());
+        return filterRegistrationBean;
     }
 
 }
