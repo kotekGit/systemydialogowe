@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.edu.wat.swp.managers.AccountManager;
+import pl.edu.wat.swp.managers.OfferManager;
 
 /**
  * 
@@ -20,6 +21,9 @@ public class GuiController
     @Autowired
     AccountManager accountManager;
 
+    @Autowired
+    OfferManager offerManager;
+
     @RequestMapping( "/users" )
     public String getUsers( Model model )
     {
@@ -32,6 +36,13 @@ public class GuiController
     {
         model.addAttribute( "subaccounts", accountManager.getAllSubAccountsData() );
         return "subaccounts";
+    }
+
+    @RequestMapping( "/offers" )
+    public String getAllOffers( Model model )
+    {
+        model.addAttribute( "offers", offerManager.getAllOffer() );
+        return "offers";
     }
 
 }

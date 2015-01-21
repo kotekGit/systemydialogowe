@@ -1,11 +1,13 @@
 package pl.edu.wat.swp.managers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import pl.edu.wat.swp.dto.OfferDTO;
 import pl.edu.wat.swp.dto.xmls.Offer;
 import pl.edu.wat.swp.helpers.CommonVariables;
 import pl.edu.wat.swp.model.Oferta;
@@ -70,6 +72,24 @@ public class OfferManager
         }
 
         return offer;
+    }
+
+    /**
+     * Get all offers.
+     * 
+     * @return
+     */
+    public List<OfferDTO> getAllOffer()
+    {
+        List<Oferta> allOffers = offerRepositoryImpl.findAll();
+        List<OfferDTO> allOfferDTOs = new ArrayList<OfferDTO>();
+        for ( Oferta oferta : allOffers )
+        {
+            OfferDTO offerDTO = new OfferDTO( oferta );
+            allOfferDTOs.add( offerDTO );
+        }
+        return allOfferDTOs;
+
     }
 
 }

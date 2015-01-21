@@ -26,12 +26,12 @@ public class OfferRepositoryImpl
 {
     @PersistenceContext
     private EntityManager em;
-    
+
     @Autowired
     OfertaRepository ofertaRepository;
-    
-    @Transactional(readOnly = false)
-    public void save(Oferta oferta)
+
+    @Transactional( readOnly = false )
+    public void save( Oferta oferta )
     {
         ofertaRepository.save( oferta );
     }
@@ -43,6 +43,11 @@ public class OfferRepositoryImpl
         TypedQuery query = em.createQuery( "select o from Oferta o where o.dataOd < ?1 and o.dataDo > ?1", Oferta.class );
         query.setParameter( 1, currentDate );
         return query.getResultList();
+    }
+
+    public List<Oferta> findAll()
+    {
+        return ofertaRepository.findAll();
     }
 
 }
