@@ -109,6 +109,7 @@ public class PlaceManager
         }
 
         address.setFullAdress( fullAdres.toString() );
+
         return address;
     }
 
@@ -291,8 +292,15 @@ public class PlaceManager
 
             fullAddress.append( currentAdres );
         }
+        if ( adresses.size() > 0 )
+        {
+            address.setFullAdress( fullAddress.toString() );
+        }
+        else
+        {
+            address.setFullAdress( CommonVariables.NOT_FOUND_MESSAGE );
+        }
 
-        address.setFullAdress( fullAddress.toString() );
         return address;
     }
 }

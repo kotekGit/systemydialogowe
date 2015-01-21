@@ -60,7 +60,15 @@ public class OfferManager
             fullInfo.append( currentOffer );
         }
 
-        offer.setNameAndContents( fullInfo.toString() );
+        if ( offers.size() > 0 )
+        {
+            offer.setNameAndContents( fullInfo.toString() );
+        }
+        else
+        {
+            offer.setNameAndContents( CommonVariables.NOT_FOUND_MESSAGE );
+        }
+
         return offer;
     }
 

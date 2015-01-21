@@ -27,6 +27,7 @@ public class CommonVariables
     public static final String TRANSACTION_DESCRIBE = "Describe ";
     
     public static final String DATE_WITHOUT_TIME_FORMAT = "yyyy-MM-dd";
+    public static final String NOT_FOUND_MESSAGE = "Not found";
     
 
 }
