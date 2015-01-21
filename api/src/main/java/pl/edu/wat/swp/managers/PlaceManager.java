@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import pl.edu.wat.swp.dto.AddressDTO;
 import pl.edu.wat.swp.dto.xmls.Address;
 import pl.edu.wat.swp.helpers.CommonVariables;
 import pl.edu.wat.swp.model.Adres;
@@ -302,5 +303,139 @@ public class PlaceManager
         }
 
         return address;
+    }
+
+    /**
+     * Return all places entity for criteria.
+     * 
+     * @param place
+     * @param district
+     * @param atms
+     * @param branches
+     * @return
+     */
+    public List<Adres> getAllPlacesEntityForCriteria( String place, String district, List<Bankomat> atms,
+            List<Oddzial> branches )
+    {
+        List<Adres> adresses = adresRepository.findAll();
+        Set<Adres> filteredByCriteria = new HashSet<Adres>();
+        Address resultAddresses = null;
+        final String placeCriteria = place;
+        final String districtCriteria = district;
+        Set<Integer> ids = null;
+        Function<Bankomat, Integer> transformBankomat;
+        Function<Oddzial, Integer> transformOddzial;
+
+        if ( atms != null && atms.size() > 0 )
+        {
+            // get all unique id from Bankomat place
+            Function<Bankomat, Integer> transform = new Function<Bankomat, Integer>()
+            {
+
+                @Nullable
+                public Integer apply( Bankomat input )
+                {
+                    if ( input == null )
+                    {
+                        return null;
+                    }
+                    else if ( input.getIdAdresu() == null )
+                    {
+                        return null;
+                    }
+                    return input.getIdAdresu().getIdAdresu();
+                }
+
+            };
+
+            ids = new HashSet<Integer>( Lists.transform( atms, transform ) );
+        }
+
+        if ( branches != null && branches.size() > 0 )
+        {
+            // get all unique id from Oddzial place
+            Function<Oddzial, Integer> transform = new Function<Oddzial, Integer>()
+            {
+
+                @Nullable
+                public Integer apply( Oddzial input )
+                {
+                    if ( input == null )
+                    {
+                        return null;
+                    }
+                    else if ( input.getIdAdresu() == null )
+                    {
+                        return null;
+                    }
+                    return input.getIdAdresu().getIdAdresu();
+                }
+
+            };
+
+            ids = new HashSet<Integer>( Lists.transform( branches, transform ) );
+        }
+
+        for ( final Integer id : ids )
+        {
+            if ( id != null )
+            {
+                // get values for criteria
+                Predicate<Adres> predicatPlace = new Predicate<Adres>()
+                {
+
+                    public boolean apply( Adres input )
+                    {
+                        return ( input.getMiejscowosc() != null
+                                 && input.getMiejscowosc().equalsIgnoreCase( placeCriteria )
+                                 && input.getDzielnica() != null
+                                 && input.getDzielnica().equalsIgnoreCase( districtCriteria )
+                                 && input.getIdAdresu() != null && input.getIdAdresu().intValue() == id );
+
+                    }
+                };
+
+                Collection<Adres> filteredAdres = Collections2.filter( adresses, predicatPlace );
+                filteredByCriteria.addAll( filteredAdres );
+
+            }
+        }
+
+        return new ArrayList<Adres>( filteredByCriteria );
+    }
+
+    /**
+     * Get all places for view.
+     * 
+     * @param type
+     * @param place
+     * @param district
+     * @return
+     */
+    public List<AddressDTO> getPlacesForView( String typeAddress, String place, String district )
+    {
+        List<Adres> adresses = new ArrayList<Adres>();
+        List<AddressDTO> resultAddres = new ArrayList<AddressDTO>();
+
+        Integer type = Integer.valueOf( typeAddress );
+        if ( type.intValue() == 1 )
+        {
+            List<Bankomat> atms = bankomatRepository.findAll();
+            adresses = this.getAllPlacesEntityForCriteria( place, district, atms, null );
+        }
+        else if ( type.intValue() == 2 )
+        {
+            List<Oddzial> branches = oddzialReposirory.findAll();
+            adresses = this.getAllPlacesEntityForCriteria( place, district, null, branches );
+        }
+
+        for ( Adres adres : adresses )
+        {
+            String typeForView = type.intValue() == 1 ? "Bankomat" : "Placówka";
+            AddressDTO addressDTO = new AddressDTO( adres, typeForView );
+            resultAddres.add( addressDTO );
+        }
+
+        return resultAddres;
     }
 }
