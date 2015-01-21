@@ -58,9 +58,9 @@
 					</div>
 				</div>
 
-				<div class="row-fluid">
-					<form:button class="btn btn-group pull-right"> Serach</form:button>
-				</div>
+					<div class="row-fluid">
+						<form:button class="btn btn-group pull-right" tittle="Search"></form:button>
+					</div>
 			</form:form>
 
 			<jsp:include page="/WEB-INF/jsp/addressesList.jsp"></jsp:include>
