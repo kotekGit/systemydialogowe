@@ -28,12 +28,14 @@
 			<tbody>
 				<c:forEach begin="0" end="${fn:length(subaccounts)}" step="1"
 					varStatus="loopCounter" items="${subaccounts}" var="subaccount">
+				<tr>
 					<td class="numeric">${subaccount.nrsk}</td>
 					<td class="numeric">${subaccount.id}</td>
 					<td class="numeric">${subaccount.name}</td>
 					<td class="numeric">${subaccount.surname}</td>
 					<td class="numeric">${subaccount.login}</td>
 					<td class="numeric">${subaccount.saldo}</td>
+				</tr>
 				</c:forEach>
 			</tbody>
 		</table>

@@ -30,6 +30,7 @@
 			<tbody>
 				<c:forEach begin="0" end="${fn:length(users)}" step="1"
 					varStatus="loopCounter" items="${users}" var="user">
+				<tr>
 					<td class="numeric">${user.id}</td>
 					<td class="numeric">${user.name}</td>
 					<td class="numeric">${user.surname}</td>
@@ -38,6 +39,7 @@
 					<td class="numeric">${user.place}</td>
 					<td class="numeric">${user.street}</td>
 					<td class="numeric">${user.district}</td>
+				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
