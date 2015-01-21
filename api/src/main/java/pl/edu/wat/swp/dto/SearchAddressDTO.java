@@ -1,5 +1,9 @@
 package pl.edu.wat.swp.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+
 /**
  * 
  * @author Krzysztof Jedynak @email jedynakpoczta@gmail.com
@@ -8,7 +12,11 @@ package pl.edu.wat.swp.dto;
 public class SearchAddressDTO
 {
     private String type;
+
+    @NotEmpty( message = "City is required" )
     private String city;
+
+    @NotEmpty( message = "District is required" )
     private String district;
 
     public String getType()

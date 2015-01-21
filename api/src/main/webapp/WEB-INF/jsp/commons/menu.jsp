@@ -4,35 +4,35 @@
 	<div class="accordion-group">
 		<div class="accordion-heading">
 			<a class="accordion-toggle" data-parent="#main-menu"
-				href="<c:url value="/"/>"> Users
+				href="<c:url value="/gui/users"/>"> Users
 			</a>
 		</div>
 	</div>
 		<div class="accordion-group">
 		<div class="accordion-heading">
 			<a class="accordion-toggle" data-parent="#main-menu"
-				href="<c:url value="/"/>"> Subaccounts
+				href="<c:url value="/gui/subaccounts"/>"> Subaccounts
 			</a>
 		</div>
 	</div>
 		<div class="accordion-group">
 		<div class="accordion-heading">
 			<a class="accordion-toggle" data-parent="#main-menu"
-				href="<c:url value="/"/>"> Addresses
+				href="<c:url value="/gui/addresses"/>"> Addresses
 			</a>
 		</div>
 	</div>
 		<div class="accordion-group">
 		<div class="accordion-heading">
 			<a class="accordion-toggle" data-parent="#main-menu"
-				href="<c:url value="/"/>"> Offers
+				href="<c:url value="/gui/offers"/>"> Offers
 			</a>
 		</div>
 	</div>
 		<div class="accordion-group">
 		<div class="accordion-heading">
 			<a class="accordion-toggle" data-parent="#main-menu"
-				href="<c:url value="/"/>"> Transactions
+				href="<c:url value="/gui"/>"> Transactions
 			</a>
 		</div>
 	</div>

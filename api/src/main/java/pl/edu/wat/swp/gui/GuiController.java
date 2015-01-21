@@ -3,6 +3,8 @@ package pl.edu.wat.swp.gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.edu.wat.swp.dto.AddressDTO;
 import pl.edu.wat.swp.dto.SearchAddressDTO;
@@ -35,6 +38,12 @@ public class GuiController
 
     @Autowired
     PlaceManager placeManager;
+
+    @RequestMapping( "/" )
+    public String getMainPage( Model model, RedirectAttributes redirectAttributes )
+    {
+        return "redirect:/gui/users";
+    }
 
     @RequestMapping( "/users" )
     public String getUsers( Model model )
@@ -67,7 +76,8 @@ public class GuiController
     }
 
     @RequestMapping( value = "/addresses", method = RequestMethod.POST )
-    public String getAddreessesForCriteria( @ModelAttribute( "addressSearch" ) SearchAddressDTO searchAddressDTO,
+    public String getAddreessesForCriteria(
+            @Valid @ModelAttribute( "addressSearch" ) SearchAddressDTO searchAddressDTO,
             BindingResult addressBindingResult, Model model )
     {
         model.addAttribute(
@@ -82,7 +92,7 @@ public class GuiController
     {
         HashMap<Integer, String> types = new HashMap<Integer, String>();
         types.put( 1, "Bankomat" );
-        types.put( 2, "Placówka" );
+        types.put( 2, "Placowka" );
         model.addAttribute( "types", types );
     }
 

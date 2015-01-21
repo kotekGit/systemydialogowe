@@ -10,35 +10,54 @@
 </head>
 <body>
 	<!-- Start -->
-	<div class="box">
-		<h4>Subaccounts</h4>
-		<hr>
-		<table class="table table-bordered table-striped table-condensed">
-			<thead>
-				<tr>
-					<th class="numeric">NRKS</th>
-					<th class="numeric">User Id</th>
-					<th class="numeric">Name</th>
-					<th class="numeric">Surname</th>
-					<th class="numeric">Login</th>
-					<th class="numeric">Balance [$]</th>
+	<fieldset>
+		<legend> Subaccounts </legend>
+		<div class="box">
+			<!-- 		<h4>Subaccounts</h4> -->
+			<!-- 			<hr> -->
+			<table class="table table-striped table-condensed">
+				<thead>
+					<tr>
+						<th class="numeric">NRKS</th>
+						<th class="numeric">User Id</th>
+						<th class="numeric">Name</th>
+						<th class="numeric">Surname</th>
+						<th class="numeric">Login</th>
+						<th class="numeric">Balance [$]</th>
 
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach begin="0" end="${fn:length(subaccounts)}" step="1"
-					varStatus="loopCounter" items="${subaccounts}" var="subaccount">
-				<tr>
-					<td class="numeric">${subaccount.nrsk}</td>
-					<td class="numeric">${subaccount.id}</td>
-					<td class="numeric">${subaccount.name}</td>
-					<td class="numeric">${subaccount.surname}</td>
-					<td class="numeric">${subaccount.login}</td>
-					<td class="numeric">${subaccount.saldo}</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach begin="0" end="${fn:length(subaccounts)}" step="1"
+						varStatus="loopCounter" items="${subaccounts}" var="subaccount">
+						<c:choose>
+							<c:when test="${loopCounter.index mod 5 == 0}">
+								<tr class="active">
+							</c:when>
+							<c:when test="${loopCounter.index mod 5 == 1}">
+								<tr class="success">
+							</c:when>
+							<c:when test="${loopCounter.index mod 5 == 2}">
+								<tr class="info">
+							</c:when>
+							<c:when test="${loopCounter.index mod 5 == 3}">
+								<tr class="warning">
+							</c:when>
+							<c:when test="${loopCounter.index mod 5 == 4}">
+								<tr class="danger">
+							</c:when>
+						</c:choose>
+						<td class="numeric">${subaccount.nrsk}</td>
+						<td class="numeric">${subaccount.id}</td>
+						<td class="numeric">${subaccount.name}</td>
+						<td class="numeric">${subaccount.surname}</td>
+						<td class="numeric">${subaccount.login}</td>
+						<td class="numeric">${subaccount.saldo}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</fieldset>
 	<!-- Stop -->
 </body>
