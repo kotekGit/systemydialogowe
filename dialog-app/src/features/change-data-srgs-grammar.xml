@@ -90,20 +90,41 @@
   <rule id="Street" scope="public">
   	<one-of>
   	  <item>roosvelt<tag>out.street="Roosvelt";</tag></item>
-  	  <item>elmont<tag>out.street="Elmont";</tag></item>
+  	  <item>elmont<tag>out.street="Elmont";</tag></item> 
+  	  <item>broadway<tag>out.street="Broadway";</tag></item>
+  	  <item>wall street<tag>out.street="Wall Street";</tag></item>
+  	  <item>division<tag>out.street="Division";</tag></item>
+  	  <item>main<tag>out.street="Main";</tag></item>
+  	  <item>pearl<tag>out.street="Pearl";</tag></item>
+  	  <item>lincoln<tag>out.street="Lincoln";</tag></item>
+  	  <item>alameda<tag>out.street="Alameda";</tag></item>
+  	  <item>alvarado<tag>out.street="alvarado";</tag></item>
+  	  <item>east ave<tag>out.street="east ave";</tag></item>
   	</one-of>
   </rule>
   <rule id="City" scope="public">
   	<one-of>
-  	  <item>warsaw<tag>out.city="Warsaw";</tag></item>
-  	  <item>cracow<tag>out.city="Cracow";</tag></item>
-  	  <item>wroclaw<tag>out.city="Wroclaw";</tag></item>
+  	  <item>new york<tag>out.city="New York";</tag></item>
+  	  <item>los angeles<tag>out.city="Los Angeles";</tag></item>
+  	  <item>chicago<tag>out.city="chicago";</tag></item>
+  	  <item>houston<tag>out.city="Houston";</tag></item>
+  	  <item>phoenix<tag>out.city="phoenix";</tag></item>
   	</one-of>
   </rule>
   <rule id="District" scope="public">
   	<one-of>
-  	  <item>bemowo<tag>out.district="Bemowo";</tag></item>
-  	  <item>wola<tag>out.district="Wola";</tag></item>
+  	  <item>manhattan<tag>out.district="Manhattan";</tag></item>
+  	  <item>brooklyn<tag>out.district="Brooklyn";</tag></item>
+  	  <item>queens<tag>out.district="Queens";</tag></item>
+  	  <item>the bronx<tag>out.district="The Bronx";</tag></item>
+  	  <item>staten island<tag>out.district="Staten Island";</tag></item>
+  	  <item>hollywood hills<tag>out.district="Hollywood Hills";</tag></item>
+  	  <item>financial<tag>out.district="Financial District";</tag></item>
+  	  <item>harbor area<tag>out.district="Harbor Area";</tag></item>
+  	  <item>westwood<tag>out.district="Westwood";</tag></item>
+  	  <item>silver lake<tag>out.district="Silver Lake";</tag></item>
+  	  <item>avondale<tag>out.district="Avondale";</tag></item>
+  	  <item>jefferson park<tag>out.district="Jefferson Park";</tag></item>
   	</one-of>
   </rule>
 </grammar>

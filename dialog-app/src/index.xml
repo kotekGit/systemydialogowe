@@ -7,7 +7,7 @@
         </block>
         
         <!-- logowanie -->
-        <field name="USER_ID" type="digits" expr="1"><!--tymczasowo expr-->
+        <field name="USER_ID" type="digits">
             <prompt>Please provide your ID.</prompt>
         </field>
         

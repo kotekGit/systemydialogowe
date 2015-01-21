@@ -11,7 +11,11 @@
                 Now you can change your address details. Tell city, district and street.
             </prompt>
             
-            <help>You must provide three things: city, district and street. Please try it now.</help>
+            <help>
+                <prompt>
+                    You must provide three things: city, district and street. Please try it now.
+                </prompt>
+            </help>
             <noinput count="1">
                 <prompt>Sorry, we can not hear you. Try again.</prompt>
             </noinput>

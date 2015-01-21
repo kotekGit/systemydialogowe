@@ -18,7 +18,7 @@
                 Your account balance is <value expr="BALANCE"/>.
             </prompt>
             
-            <return namelist="BALANCE"/>
+            <return/>
         </block>
     </form>
 </vxml>
