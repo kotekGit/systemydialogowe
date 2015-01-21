@@ -164,7 +164,15 @@ public class AccountManager
             describeTrans.append( currentTrans );
         }
 
-        transaction.setInfo( describeTrans.toString() );
+        if ( transactions.size() > 0 )
+        {
+            transaction.setInfo( describeTrans.toString() );
+        }
+        else
+        {
+            transaction.setInfo( CommonVariables.NOT_FOUND_MESSAGE );
+        }
+
         return transaction;
     }
 
