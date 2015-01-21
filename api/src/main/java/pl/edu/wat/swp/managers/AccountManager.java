@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import pl.edu.wat.swp.dto.UserDTO;
 import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.ChangeData;
 import pl.edu.wat.swp.dto.xmls.Login;
@@ -169,7 +170,7 @@ public class AccountManager
     {
         List<Rodzajoperacji> all = rodzajOperacjiRepository.findAll();
         List<Rodzajoperacji> distinct = new ArrayList<Rodzajoperacji>();
-        distinct.add(all.get(0));
+        distinct.add( all.get( 0 ) );
         for ( Rodzajoperacji a : all )
         {
             for ( Rodzajoperacji d : distinct )
@@ -186,6 +187,7 @@ public class AccountManager
 
     /**
      * Change customer address data.
+     * 
      * @param id
      * @param place
      * @param district
@@ -226,6 +228,20 @@ public class AccountManager
             return changeData;
         }
 
+    }
+
+    public List<UserDTO> getAllUsersData()
+    {
+        List<Klient> allUsers = klientRepository.findAll();
+        List<UserDTO> allUsersDTOs = new ArrayList<UserDTO>();
+        for ( Klient klient : allUsers )
+        {
+            Adres userAddress = klient.getIdAdresu();
+            UserDTO userDTO = new UserDTO( klient, userAddress );
+            allUsersDTOs.add( userDTO );
+
+        }
+        return allUsersDTOs;
     }
 
 }
