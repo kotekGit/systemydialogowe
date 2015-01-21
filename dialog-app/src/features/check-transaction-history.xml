@@ -4,7 +4,7 @@
     
     <form>
         <var name="USER_ID"/>
-        <var name="TRANSACTIONS"/>
+        <var name="foundTransactions"/>
 
         <grammar srcexpr="TRANSACTIONS.grammarURL()" type="text/gsl" root="Request"/>
         <initial name="question">
@@ -12,7 +12,11 @@
                 What kind of transaction you want to check, for what period of time and what kind of category?
             </prompt>
             
-            <help>You must provide three things: transaction type, time and category. Please try it again.</help>
+            <help>
+                <prompt>
+                    You must provide three things: transaction type, time and category. Please try it again.
+                </prompt>
+            </help>
             
             <noinput cond="true" count="2">
                 <prompt>
@@ -30,13 +34,13 @@
             </nomatch>
         </initial>
         
-        <field name="TYPE">
+        <field name="type">
             <prompt>Transaction type?</prompt>
         </field>
-        <field name="TIME">
+        <field name="time">
             <prompt>What period of time?</prompt>
         </field>
-        <field name="CATEGORY">
+        <field name="category">
             <prompt>What kind of category?</prompt>
         </field>
         
@@ -44,17 +48,24 @@
             <prompt>
                 Please wait a second. System is checking yours transaction.
             </prompt>
-            <!-- wywo?anie api serwisu -->
-            <data name="DATA" srcexpr="TRANSACTIONS.transactionsURL(USER_ID, PASSWORD);"/>
-            <assign name="TRANSACTIONS" expr="TRANSACTIONS.transactions(DATA);"/>
-            <prompt>
-                All transactions for you chose:
-                <value expr="TYPE"/>
-                <value expr="TIME"/>
-                <value expr="CATEGORY"/>
-                are
-                <value expr="TRANSACTIONS"/>
-            </prompt>
+
+            <data name="DATA" srcexpr="TRANSACTIONS.transactionsURL(type, category, time);"/>
+            <assign name="foundTransactions" expr="TRANSACTIONS.transactions(DATA);"/>
+            
+            <if cond="foundTransactions!='Not found'">
+                <prompt>
+                    All transactions for you chose:
+                    <value expr="type"/>
+                    <value expr="time"/>
+                    <value expr="category"/>
+                    are
+                    <value expr="foundTransactions"/>.
+                </prompt>
+            <else/>
+                <prompt>
+                    Sorry, there is no such transactions you specified for the search.
+                </prompt>
+            </if>
             <return/>
         </filled>
     </form>

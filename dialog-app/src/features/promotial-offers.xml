@@ -13,7 +13,7 @@
             <data name="DATA" srcexpr="OFFER.allOfferURL();"/>
             <assign name="promotial_offers" expr="OFFER.allOffer(DATA);"/>
 
-            <if cond="promotial_offers.lenght!=0">
+            <if cond="promotial_offers!='Not found'">
                 <log expr="'data:' + DATA" />
                 <log expr="'promotial offers:' + promotial_offers" />
                 <prompt> <value expr="promotial_offers"/> </prompt>

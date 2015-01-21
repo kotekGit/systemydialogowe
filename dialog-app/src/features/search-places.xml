@@ -11,7 +11,6 @@
                 Do you want to find a bank facility or ATM? Tell city and district.
             </prompt>
             
-            <help>You must provide three things: city, district and street. Please try it now.</help>
             <noinput count="1">
                 <prompt>Sorry, we can not hear you. Try again.</prompt>
             </noinput>
@@ -29,31 +28,42 @@
                 <assign name="question" expr="true"/>
                 <return/>
             </nomatch>
+            <help>
+                <prompt>
+                    You must provide three things: city, district and street. Please try it now.
+                </prompt>
+            </help>
         </initial>
         
         <field name="findType">
             <prompt>Do you want to find a bank facility or ATM?</prompt>
-            <grammar src="PLACE.grammarURL() + '#FindType'" type="text/gsl" />
+            <grammar srcexpr="PLACE.grammarURL() + '#FindType'" type="text/gsl" />
         </field>
         <field name="city">
             <prompt>Tell city.</prompt>
-            <grammar src="PLACE.grammarURL() + '#City'" type="text/gsl" />
+            <grammar srcexpr="PLACE.grammarURL() + '#City'" type="text/gsl" />
         </field>
         <field name="district">
             <prompt>Tell district.</prompt>
-            <grammar src="PLACE.grammarURL() + '#District'" type="text/gsl" />
+            <grammar srcexpr="PLACE.grammarURL() + '#District'" type="text/gsl" />
         </field>
         
         <filled mode="all">
             <prompt>
                 Please wait a second. System is searching places for you.
             </prompt>
+
             <data name="DATA" srcexpr="PLACE.placesURL(findType, city, district);"/>
             <assign name="search_results" expr="PLACE.places(DATA);"/>
+ 
             <log expr="'found places: ' + search_results"/>
-            <prompt>
-                Our bank <value expr="findType"/>s in <value expr="city"/> district <value expr="district"/> are <value expr="search_results"/>.
-            </prompt>
+            <if cond="search_results!='Not found'">
+                <prompt>
+                    Our bank <value expr="findType"/>s in <value expr="city"/> district <value expr="district"/> are <value expr="search_results"/>.
+                </prompt>
+            <else/>
+                <prompt>Sorry, we don't found any places.</prompt>
+            </if>
             
             <return/>
         </filled>

@@ -76,8 +76,9 @@ var TRANSACTIONS = {
         return URL + "transactions/"+TYPE+"/"+CATEGORY+"/"+INTERVAL;
     },
     transactions : function(xml) {
-        return XML.get(xml, "");
+        return XML.get(xml, "info");
     },
     grammarURL : function() {
         return GrammarURL + "gsl/transactions";
     }
+};
