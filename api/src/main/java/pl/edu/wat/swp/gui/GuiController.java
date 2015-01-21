@@ -27,4 +27,11 @@ public class GuiController
         return "users";
     }
 
+    @RequestMapping( "/subaccounts" )
+    public String getSubAccounts( Model model )
+    {
+        model.addAttribute( "subaccounts", accountManager.getAllSubAccountsData() );
+        return "subaccounts";
+    }
+
 }

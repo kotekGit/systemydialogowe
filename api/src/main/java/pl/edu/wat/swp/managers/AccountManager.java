@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import pl.edu.wat.swp.dto.SubAccountDTO;
 import pl.edu.wat.swp.dto.UserDTO;
 import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.ChangeData;
@@ -18,6 +19,7 @@ import pl.edu.wat.swp.dto.xmls.Transaction;
 import pl.edu.wat.swp.helpers.CommonVariables;
 import pl.edu.wat.swp.model.Adres;
 import pl.edu.wat.swp.model.Klient;
+import pl.edu.wat.swp.model.Kontobankowe;
 import pl.edu.wat.swp.model.Operacjabankowa;
 import pl.edu.wat.swp.model.Rodzajoperacji;
 import pl.edu.wat.swp.model.Subkonto;
@@ -230,6 +232,11 @@ public class AccountManager
 
     }
 
+    /**
+     * Get data for all users.
+     * 
+     * @return
+     */
     public List<UserDTO> getAllUsersData()
     {
         List<Klient> allUsers = klientRepository.findAll();
@@ -242,6 +249,30 @@ public class AccountManager
 
         }
         return allUsersDTOs;
+    }
+
+    /**
+     * Get data for all subaccounts.
+     * 
+     * @return
+     */
+    public List<SubAccountDTO> getAllSubAccountsData()
+    {
+        List<Klient> allUsers = klientRepository.findAll();
+        List<SubAccountDTO> allSubAccountDTOs = new ArrayList<SubAccountDTO>();
+        for ( Klient klient : allUsers )
+        {
+            for ( Kontobankowe kontobankowe : klient.getKontobankoweCollection() )
+            {
+                for ( Subkonto subkonto : kontobankowe.getSubkontoCollection() )
+                {
+                    SubAccountDTO subAccountDTO = new SubAccountDTO( klient, subkonto );
+                    allSubAccountDTOs.add( subAccountDTO );
+                }
+            }
+
+        }
+        return allSubAccountDTOs;
     }
 
 }
