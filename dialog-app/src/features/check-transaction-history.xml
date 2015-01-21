@@ -13,7 +13,7 @@
             </prompt>
             
             <help>
-                <prompt>
+                <prompt> 
                     You must provide three things: transaction type, time and category. Please try it again.
                 </prompt>
             </help>
