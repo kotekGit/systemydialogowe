@@ -312,6 +312,11 @@ public class AccountManager
     public List<TransactionDTO> getTransactionsEntityForCriteria( Integer id, String type, String category,
             String interval )
     {
+        System.out.println( "---Parametry przeszukiwania!" );
+        System.out.println( "id = " + id );
+        System.out.println( "category = " + category );
+        System.out.println( "interval = " + interval );
+        System.out.println( "type = " + type );
 
         List<TransactionDTO> transactionResult = new ArrayList<TransactionDTO>();
         Klient klient = null;
@@ -326,9 +331,10 @@ public class AccountManager
         }
 
         String typeTransaction = this.getTransactionTypeForKey( type );
-        String intervalTransaction = this.getTransactionTypeForKey( type );
+        System.out.println( "type po zamianie = " + typeTransaction );
+        /*        String intervalTransaction = this.getIntervalForKey( interval );*/
         List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( klient, typeTransaction,
-                category, intervalTransaction );
+                category, interval );
 
         for ( Operacjabankowa ob : transactions )
         {
@@ -363,14 +369,23 @@ public class AccountManager
 
     private String getTransactionTypeForKey( String key )
     {
-        HashMap<Integer, String> types = new HashMap<Integer, String>();
-        List<TransactionTypeDTO> transactionTypes = this.getAllTransactionType();
+        /*        HashMap<Integer, String> types = new HashMap<Integer, String>();
+                List<TransactionTypeDTO> transactionTypes = this.getAllTransactionType();
 
-        for ( TransactionTypeDTO transactionTypeDTO : transactionTypes )
+                for ( TransactionTypeDTO transactionTypeDTO : transactionTypes )
+                {
+                    types.put( transactionTypeDTO.getId(), transactionTypeDTO.getType() );
+                }
+                return types.get( key );*/
+        Rodzajoperacji rodzajoperacji = rodzajOperacjiRepository.findOne( Integer.valueOf( key ) );
+        if ( rodzajoperacji != null )
         {
-            types.put( transactionTypeDTO.getId(), transactionTypeDTO.getType() );
+            return rodzajoperacji.getNazwaRO();
         }
-        return types.get( key );
+        else
+        {
+            return null;
+        }
     }
 
     private String getIntervalForKey( String key )

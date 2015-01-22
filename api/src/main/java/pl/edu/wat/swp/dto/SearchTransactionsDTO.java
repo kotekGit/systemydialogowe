@@ -8,17 +8,17 @@ package pl.edu.wat.swp.dto;
 public class SearchTransactionsDTO
 {
 
-    private Integer id;
+    private String id;
     private String type;
     private String category;
     private String interval;
 
-    public Integer getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId( Integer id )
+    public void setId( String id )
     {
         this.id = id;
     }

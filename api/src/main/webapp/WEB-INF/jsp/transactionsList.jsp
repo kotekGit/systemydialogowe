@@ -30,7 +30,7 @@
 				<c:choose>
 					<c:when test="${ not empty transactions}">
 						<c:forEach begin="0" end="${fn:length(transactions)}" step="1"
-							varStatus="loopCounter" items="${transactions}" var="address">
+							varStatus="loopCounter" items="${transactions}" var="transaction">
 							<c:choose>
 								<c:when test="${loopCounter.index mod 5 == 0}">
 									<tr class="active">
@@ -48,11 +48,11 @@
 									<tr class="danger">
 								</c:when>
 							</c:choose>
-							<td class="numeric">${transactions.id}</td>
-							<td class="numeric">${transactions.date}</td>
-							<td class="numeric">${transactions.category}</td>
-							<td class="numeric">${transactions.type}</td>
-							<td class="numeric">${transactions.content}</td>
+							<td class="numeric">${transaction.id}</td>
+							<td class="numeric">${transaction.date}</td>
+							<td class="numeric">${transaction.category}</td>
+							<td class="numeric">${transaction.type}</td>
+							<td class="numeric">${transaction.content}</td>
 							</tr>
 						</c:forEach>
 					</c:when>
