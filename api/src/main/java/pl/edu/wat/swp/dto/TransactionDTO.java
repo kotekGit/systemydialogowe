@@ -2,6 +2,8 @@ package pl.edu.wat.swp.dto;
 
 import java.util.Date;
 
+import pl.edu.wat.swp.model.Operacjabankowa;
+
 /**
  * 
  * @author Krzysztof Jedynak @email jedynakpoczta@gmail.com
@@ -13,6 +15,17 @@ public class TransactionDTO
     private Integer id;
     private String content;
     private Date date;
+
+    public TransactionDTO()
+    {
+    }
+
+    public TransactionDTO( Operacjabankowa ob )
+    {
+        this.id = ob.getIdOB();
+        this.content = ob.getOpis();
+        this.date = ob.getDataOB();
+    }
 
     public Integer getId()
     {

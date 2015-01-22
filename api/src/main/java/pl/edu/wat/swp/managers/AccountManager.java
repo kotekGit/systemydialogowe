@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import pl.edu.wat.swp.dto.SubAccountDTO;
+import pl.edu.wat.swp.dto.TransactionDTO;
 import pl.edu.wat.swp.dto.UserDTO;
 import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.ChangeData;
@@ -123,14 +124,13 @@ public class AccountManager
      * @param type
      * @param food
      * @param interval
-     * @param interval2 
+     * @param interval2
      * @return
      */
-    public Transaction getTransactionsForCriteria(Integer id, String type, String category, String interval )
+    public Transaction getTransactionsForCriteria( Integer id, String type, String category, String interval )
     {
         Transaction transaction = new Transaction();
-        
-        
+
         Klient klient = null;
 
         try
@@ -141,9 +141,9 @@ public class AccountManager
         {
             logger.debug( "User not found!" );
         }
-        
-        
-        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria(klient, type, category, interval );
+
+        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( klient, type, category,
+                interval );
         transaction = this.makeXMLForEntities( transactions );
         return transaction;
     }
@@ -296,6 +296,42 @@ public class AccountManager
 
         }
         return allSubAccountDTOs;
+    }
+
+    /**
+     * Get transaction entity by criteria.
+     * 
+     * @param id
+     * @param type
+     * @param category
+     * @param interval
+     * @return
+     */
+    public List<TransactionDTO> getTransactionsEntityForCriteria( Integer id, String type, String category,
+            String interval )
+    {
+
+        List<TransactionDTO> transactionResult = new ArrayList<TransactionDTO>( );
+        Klient klient = null;
+
+        try
+        {
+            klient = klientRepository.findBynik( id );
+        }
+        catch ( NullPointerException npe )
+        {
+            logger.debug( "User not found!" );
+        }
+
+        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( klient, type, category,
+                interval );
+        
+        for(Operacjabankowa ob : transactions)
+        {
+            TransactionDTO transactionDTO = new TransactionDTO( ob );
+            transactionResult.add( transactionDTO );
+        }
+        return transactionResult;
     }
 
 }
