@@ -15,6 +15,8 @@ public class TransactionDTO
     private Integer id;
     private String content;
     private Date date;
+    private String type;
+    private String category;
 
     public TransactionDTO()
     {
@@ -25,6 +27,11 @@ public class TransactionDTO
         this.id = ob.getIdOB();
         this.content = ob.getOpis();
         this.date = ob.getDataOB();
+        this.category = ob.getKategoria();
+        if ( ob.getRodzajoperacji() != null )
+        {
+            this.type = ob.getRodzajoperacji().getNazwaRO();
+        }
     }
 
     public Integer getId()
@@ -55,6 +62,26 @@ public class TransactionDTO
     public void setDate( Date date )
     {
         this.date = date;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType( String type )
+    {
+        this.type = type;
+    }
+
+    public String getCategory()
+    {
+        return category;
+    }
+
+    public void setCategory( String category )
+    {
+        this.category = category;
     }
 
 }
