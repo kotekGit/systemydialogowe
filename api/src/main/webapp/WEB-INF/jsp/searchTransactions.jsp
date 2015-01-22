@@ -41,11 +41,11 @@
 
 			<div class="form-group">
 				<div class="span5">
-					<label class="control-label"> Type </label>
+					<label class="control-label">Type</label>
 				</div>
 				<div class="span7">
-					<form:input cssClass="input-medium" path="type" />
-					<form:errors path="type" cssClass="text-error" />
+					<form:select path="type" items="${types}" class="form-control"></form:select>
+					<form:errors path="type" cssClass="error" />
 				</div>
 			</div>
 			<div class="row-fluid span12"></div>
@@ -55,7 +55,7 @@
 					<label class="control-label">Interval</label>
 				</div>
 				<div class="span7">
-					<form:select path="interval" items="${interval}" class="form-control"></form:select>
+					<form:select path="interval" items="${intervals}" class="form-control"></form:select>
 					<form:errors path="interval" cssClass="error" />
 				</div>
 			</div>

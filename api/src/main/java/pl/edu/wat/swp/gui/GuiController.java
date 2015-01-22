@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.edu.wat.swp.dto.AddressDTO;
 import pl.edu.wat.swp.dto.SearchAddressDTO;
+import pl.edu.wat.swp.dto.SearchTransactionsDTO;
+import pl.edu.wat.swp.dto.TransactionDTO;
 import pl.edu.wat.swp.dto.TransactionTypeDTO;
 import pl.edu.wat.swp.managers.AccountManager;
 import pl.edu.wat.swp.managers.OfferManager;
@@ -93,11 +95,11 @@ public class GuiController
     @RequestMapping( value = "/transactions", method = RequestMethod.GET )
     public String getTransactionsForCriteria( Model model )
     {
-        model.addAttribute( "transactionsSearch", new SearchAddressDTO() );
-        model.addAttribute( "transactions", new ArrayList<AddressDTO>() );
+        model.addAttribute( "transactionsSearch", new SearchTransactionsDTO() );
+        model.addAttribute( "transactions", new ArrayList<TransactionDTO>() );
         this.getIntervalList( model );
         this.getTransactionTypeList( model );
-        return "searchAddresses";
+        return "searchTransactions";
     }
 
     private void getAddressTypeList( Model model )
