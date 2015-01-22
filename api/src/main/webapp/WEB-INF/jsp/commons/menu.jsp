@@ -32,7 +32,7 @@
 		<div class="accordion-group">
 		<div class="accordion-heading">
 			<a class="accordion-toggle" data-parent="#main-menu"
-				href="<c:url value="/gui"/>"> Transactions
+				href="<c:url value="/gui/transactions"/>"> Transactions
 			</a>
 		</div>
 	</div>
