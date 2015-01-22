@@ -104,13 +104,15 @@ public class GuiController
 
     @RequestMapping( value = "/transactions", method = RequestMethod.POST )
     public String getTransactionsForCriteria(
-            @ModelAttribute( "transactionsSearch" ) SearchTransactionsDTO searchTransactionsDTO,
+            @Valid @ModelAttribute( "transactionsSearch" ) SearchTransactionsDTO searchTransactionsDTO,
             BindingResult transactionBindingResult, Model model )
     {
 
-        model.addAttribute( "transactions", accountManager.getTransactionsEntityForCriteria(
-                Integer.valueOf( searchTransactionsDTO.getId() ), searchTransactionsDTO.getType(),
-                searchTransactionsDTO.getCategory(), searchTransactionsDTO.getType() ) );
+        model.addAttribute(
+                "transactions",
+                accountManager.getTransactionsEntityForCriteria( searchTransactionsDTO.getId(),
+                        searchTransactionsDTO.getType(), searchTransactionsDTO.getCategory(),
+                        searchTransactionsDTO.getType() ) );
         this.getIntervalList( model );
         this.getTransactionTypeList( model );
         return "searchTransactions";

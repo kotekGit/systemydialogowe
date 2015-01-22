@@ -1,5 +1,11 @@
 package pl.edu.wat.swp.dto;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+
 /**
  * 
  * @author Krzysztof Jedynak @email jedynakpoczta@gmail.com
@@ -8,17 +14,18 @@ package pl.edu.wat.swp.dto;
 public class SearchTransactionsDTO
 {
 
-    private String id;
+    private Integer id;
     private String type;
+    @NotEmpty( message = "Kategoria transakcji jest wymagana!" )
     private String category;
     private String interval;
 
-    public String getId()
+    public Integer getId()
     {
         return id;
     }
 
-    public void setId( String id )
+    public void setId( Integer id )
     {
         this.id = id;
     }

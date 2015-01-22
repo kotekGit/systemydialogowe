@@ -84,7 +84,7 @@ public class TransactionsRepository
             
             Klient k = operacjabankowa.getNik();
             
-            if (klient.equals(k)) {
+            if (klient!= null && klient.equals(k)) {
                 if ( operacjabankowa.getRodzajoperacji() != null && operacjabankowa.getRodzajoperacji().getNazwaRO()!= null
                         && operacjabankowa.getRodzajoperacji().getNazwaRO().equalsIgnoreCase( type )
                         && operacjabankowa.getKategoria().equals(category))
