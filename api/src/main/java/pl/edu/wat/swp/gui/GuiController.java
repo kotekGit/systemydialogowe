@@ -102,6 +102,22 @@ public class GuiController
         return "searchTransactions";
     }
 
+    @RequestMapping( value = "/transactions", method = RequestMethod.GET )
+    public String getTransactionsForCriteria(
+            @ModelAttribute( "transactionsSearch" ) SearchTransactionsDTO searchTransactionsDTO,
+            BindingResult transactionBindingResult, Model model )
+    {
+
+        model.addAttribute(
+                "transactions",
+                accountManager.getTransactionsEntityForCriteria( searchTransactionsDTO.getId(),
+                        searchTransactionsDTO.getType(), searchTransactionsDTO.getCategory(),
+                        searchTransactionsDTO.getType() ) );
+        this.getIntervalList( model );
+        this.getTransactionTypeList( model );
+        return "searchTransactions";
+    }
+
     private void getAddressTypeList( Model model )
     {
         HashMap<Integer, String> types = new HashMap<Integer, String>();

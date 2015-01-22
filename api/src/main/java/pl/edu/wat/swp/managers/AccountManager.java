@@ -3,11 +3,13 @@ package pl.edu.wat.swp.managers;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import pl.edu.wat.swp.dto.SubAccountDTO;
 import pl.edu.wat.swp.dto.TransactionDTO;
@@ -323,8 +325,10 @@ public class AccountManager
             logger.debug( "User not found!" );
         }
 
-        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( klient, type, category,
-                interval );
+        String typeTransaction = this.getTransactionTypeForKey( type );
+        String intervalTransaction = this.getTransactionTypeForKey( type );
+        List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( klient, typeTransaction,
+                category, intervalTransaction );
 
         for ( Operacjabankowa ob : transactions )
         {
@@ -355,6 +359,27 @@ public class AccountManager
         }
 
         return types;
+    }
+
+    private String getTransactionTypeForKey( String key )
+    {
+        HashMap<Integer, String> types = new HashMap<Integer, String>();
+        List<TransactionTypeDTO> transactionTypes = this.getAllTransactionType();
+
+        for ( TransactionTypeDTO transactionTypeDTO : transactionTypes )
+        {
+            types.put( transactionTypeDTO.getId(), transactionTypeDTO.getType() );
+        }
+        return types.get( key );
+    }
+
+    private String getIntervalForKey( String key )
+    {
+        HashMap<Integer, String> intervals = new HashMap<Integer, String>();
+        intervals.put( 1, "Year" );
+        intervals.put( 2, "Month" );
+        intervals.put( 3, "Day" );
+        return intervals.get( key );
     }
 
 }
