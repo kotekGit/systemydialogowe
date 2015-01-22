@@ -11,8 +11,8 @@
 	<!-- 	<div class="row-fluid"> -->
 	<!-- Search in system for criteria -->
 	<fieldset>
-		<c:url value="/gui/addresses" var="search" />
-		<form:form modelAttribute="addressSearch" cssClass="form-horizontal"
+		<c:url value="/gui/transactions" var="search" />
+		<form:form modelAttribute="transactionsSearch" cssClass="form-horizontal"
 			method="POST" action="${search}" role="form">
 			<legend> Search transactions</legend>
 			<div id="search-feedback" class="text-error"></div>

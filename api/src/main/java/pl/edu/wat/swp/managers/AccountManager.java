@@ -8,10 +8,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import pl.edu.wat.swp.dto.SubAccountDTO;
 import pl.edu.wat.swp.dto.TransactionDTO;
+import pl.edu.wat.swp.dto.TransactionTypeDTO;
 import pl.edu.wat.swp.dto.UserDTO;
 import pl.edu.wat.swp.dto.xmls.Account;
 import pl.edu.wat.swp.dto.xmls.ChangeData;
@@ -311,7 +311,7 @@ public class AccountManager
             String interval )
     {
 
-        List<TransactionDTO> transactionResult = new ArrayList<TransactionDTO>( );
+        List<TransactionDTO> transactionResult = new ArrayList<TransactionDTO>();
         Klient klient = null;
 
         try
@@ -325,13 +325,36 @@ public class AccountManager
 
         List<Operacjabankowa> transactions = transactionsRepository.getTransactionsByCriteria( klient, type, category,
                 interval );
-        
-        for(Operacjabankowa ob : transactions)
+
+        for ( Operacjabankowa ob : transactions )
         {
             TransactionDTO transactionDTO = new TransactionDTO( ob );
             transactionResult.add( transactionDTO );
         }
         return transactionResult;
+    }
+
+    /**
+     * Get all transaction types.
+     * 
+     * @return
+     */
+    public List<TransactionTypeDTO> getAllTransactionType()
+    {
+        List<TransactionTypeDTO> types = new ArrayList<TransactionTypeDTO>();
+        List<Rodzajoperacji> kindOfOperations = rodzajOperacjiRepository.findAll();
+
+        for ( Rodzajoperacji rodzajoperacji : kindOfOperations )
+        {
+            if ( rodzajoperacji.getNazwaRO() != null )
+            {
+                TransactionTypeDTO transactionTypeDTO = new TransactionTypeDTO( rodzajoperacji.getIdRO(),
+                        rodzajoperacji.getNazwaRO() );
+                types.add( transactionTypeDTO );
+            }
+        }
+
+        return types;
     }
 
 }
